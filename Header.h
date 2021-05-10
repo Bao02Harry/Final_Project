@@ -19,7 +19,7 @@ struct Student{
     int* StuID;
     string Fname;
     string Lname;
-    int Gen; 
+    string Gen; 
     string Date;
     int* SocialID;
 };
