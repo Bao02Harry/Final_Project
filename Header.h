@@ -11,7 +11,7 @@ struct Teacher{
     int* TeID;
     string Fname;
     string Lname;
-    int Gen; // Nam = 0, Nu = 1
+    string Gen; 
     int* SocialID; // CMND
 };
 struct Student{
