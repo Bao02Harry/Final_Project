@@ -1,0 +1,21 @@
+course id,course name,teacher name,number of credits,the maximum number of students in the course,day1 of the week,session1,day2 of the week,session2
+CSC10001,Nhap mon lap trinh,Dung,4,120,MON,S1,SAT,S2
+CSC10002,Nhap mon lap tirnh,Quang,4,120,TUE,S2,FRI,S1
+MTH00005,Vi tich phan 2B,Vu,3,150,WED,S1,THU,S2
+MTH00004,Vi tich phan 2B,Huy,3,150,THU,S3,WED,S2
+MTH00001,Vi tich phan 1B,Van,3,130,FRI,S4,TUE,S2
+MTH00002,Vi tich phan 1B,Khang,3,130,SAT,S3,MON,S4
+BAA00001,Phap luat dai cuong,Ninh,2,100,FRI,S4,FRI,S1
+BAA00002,Phap luat dai cuong,Minh,2,100,THU,S3,MON,S1
+MTH00031,Dai so tuyen tinh,Khoa,3,50,TUE,S1,THU,S1
+MTH00030,Dai so tuyen tinh,Tuan,3,50,MON,S3,WED,S2
+CSC20001,Ki thuat lap trinh,Viet,4,120,FRI,S1,SAT,S4
+CSC20002,Ki thuat lap trinh,Tien,4,120,SAT,S1,TUE,S1
+BAA00005,Kinh te dai cuong,Nhan,2,80,MON,S3,TUE,S3
+BAA00006,Kinh te dai cuong,My,2,80,WED,S1,MON,S2
+CSC00001,Cong nghe thong tin,Cuong,3,70,TUE,S4,WED,S4
+CSC00002,Cong nghe thong tin,Hoang,3,70,FRI,S2,THU,S4
+BAA00021,The duc 1,Duc,2,40,THU,S2,SAT,S1
+BAA00022,The duc 2,Dat,2,40,WED,S3,FRI,S3
+BAA00011,Anh van 1,Thao,1,35,MON,S4,TUE,S4
+BAA00012,Anh van 2,Mai,1,35,FRI,S3,WED,S3
