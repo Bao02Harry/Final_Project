@@ -9,6 +9,7 @@ void ReadStudent(ifstream& file, Student*& S, int& n)
     string SNo;
     string SStuID;
     string SSocialID;
+    string SDate;
     n = 0;
     getline(file, line);
     while (!file.eof()) {
@@ -21,8 +22,11 @@ void ReadStudent(ifstream& file, Student*& S, int& n)
         getline(file, S[n].Gen, ',');
         getline(file, SSocialID, ',');
         S[n].SocialID = stoi(SSocialID);
-        getline(file, S[n].Date, ',');
-        S[n].Date = S[n].Date.substr(0, 2) + S[n].Date.substr(3, 2) + S[n].Date.substr(6, 2);
+        getline(file, SDate, ',');
+        while(SDate!=NULL)
+        {
+            
+        }
         getline(file, S[n].Class, ',');
         getline(file, S[n].Pass, ',');
         cout << S[n].No << endl;
