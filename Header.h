@@ -8,6 +8,9 @@
 #include <time.h>
 #include <sstream>
 using namespace std;
+struct Date{
+    int day,month,year;
+};
 struct Teacher{
     int No;// so thu tu
     int TeID;
@@ -23,7 +26,7 @@ struct Student{
     string Fname;
     string Lname;
     string Gen; 
-    string Date;
+    Date Data;
     int SocialID;
     string Class;
     string Pass;
@@ -31,6 +34,8 @@ struct Student{
 struct Cours{
 
 };
+void ReadStudent(ifstream& file, Student*& S, int& n); 
+void WriteStudent(ofstream& file,Student* S,int n);
 // Doc file CSV va luu vao cau truc 
 void Color(int i );
 

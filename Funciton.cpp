@@ -3,44 +3,61 @@ void Color(int i ){
     SetConsoleTextAttribute((GetStdHandle), i);
 }
 // doc file CSV cua sinh vien
-void ReadStudent(Student*& S, int& n) {
-    S = new Student[100];
-    ifstream file("Students.csv");
-    if (!file.is_open()) {
-        cout << "Cannot open file." << endl;
-        return;
-    }
-        string line;
-        string SNo;
-        string SStuID;
-        string SSocialID;
-        n = 0;
-        getline(file, line);
-        while (!file.eof()) {
-            getline(file, SNo, ',');
-            S[n].No = stoi(SNo);
-            getline(file, SStuID, ',');
-            S[n].StuID = stoi(SStuID);
-            getline(file, S[n].Fname, ',');
-            getline(file, S[n].Lname, ',');
-            getline(file, S[n].Gen, ',');
-            getline(file, SSocialID, ',');
-            S[n].SocialID = stoi(SSocialID);
-            getline(file, S[n].Date, ',');
-            S[n].Date = S[n].Date.substr(0, 2) + S[n].Date.substr(3, 2) + S[n].Date.substr(6, 2);
-            getline(file, S[n].Class, ',');
-            getline(file, S[n].Pass, ',');
-            cout << S[n].No << endl;
-            cout << S[n].StuID << endl;
-            cout << S[n].Fname << endl;
-            cout << S[n].Lname << endl;
-            cout << S[n].Gen << endl;
-            cout << S[n].SocialID << endl;
-            cout << S[n].Date << endl;
-            cout << S[n].Class << endl;
-            cout << S[n].Pass << endl;
-            n++;
+void ReadStudent(ifstream& file, Student*& S, int& n) 
+{
+    char* line=nullptr;
+    char* SNo=nullptr;
+    char* SStuID=nullptr;
+    char* SDate=nullptr;
+    char* SSocialID=nullptr;
+    n = 0;
+    getline(file, line);
+    S = (student*)malloc(1*sizeof(student));
+    while(file.eof()==false)
+    {
+        S =(student*)realloc(S,(n+1)*sizeof(student));
+        if (S==nullptr) return;
+        getline(file,line);
+        SNo=strtok(line,",");
+        S[n].No=atoi(SNo);
+        SStuID=strtok(NULL,",");
+        S[n].StuID=atoi(SStuID);
+        S[n].Fname=strtok(NULL,",");
+        S[n].Lname=strtok(NULL,",");
+        S[n].Gen=strtok(NULL,",");
+        SDate=strtok(NULL,",");
+        while(SDate!=NULL)
+        {
+            char* Sday=nullptr;
+            char* Smonth=nullptr;
+            char* Syear=nullptr;
+            Sday= strtok(NULL,"/");
+            S[n].Data.day = atoi(Sday);
+            Smonth=strtok(NULL,"/");
+            S[n].Data.month = atoi(Smonth);
+            Syear=strtok(NULL,",/ ");
+            S[n].Data.year=atoi(Syear); 
         }
-    file.close();
+        SSocialID=strtok(NULL,",");
+        S[n].SocialID=atoi(SSocialID);
+        S[n].Class=strtok(NULL,",");
+        S[n].Pass=strtok(NULL,",");
+        n++;
+    }
 }
 
+void WriteStudent(ofstream& file,Student* S,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+    cout << S[i].No << ", ";
+    cout << S[i].StuID << ", ";
+    cout << S[i].Fname << ", ";
+    cout << S[i].Lname << ", ";
+    cout << S[i].Gen << ", ";
+    cout << S[i].SocialID << ", ";
+    cout << S[i].Data.day<<"/"<<S[i].Data.month<<"/"<<S[i].Data.year << ", ";
+    cout << S[i].Class << ", ";
+    cout << S[i].Pass << endl;
+    }
+}
