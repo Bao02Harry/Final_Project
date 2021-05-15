@@ -21,12 +21,14 @@ struct Teacher{
     string pass;
 };
 struct Student{
-    int No; 
+    int No;
     int StuID;
     string Fname;
     string Lname;
-    string Gen; 
-    Date Data;
+    string Gen;
+    int day;
+    int month;
+    int year;
     int SocialID;
     string Class;
     string Pass;
