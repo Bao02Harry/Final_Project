@@ -4,42 +4,47 @@
 #include <fstream>
 #include <windows.h>
 #include <string>
+#include <string.h>
 #include <cmath>
 #include <time.h>
-#include <sstream>
 using namespace std;
-struct Date{
-    int day,month,year;
-};
-struct Teacher{
+struct Teacher {
     int No;// so thu tu
     int TeID;
     string Fname;
     string Lname;
-    string Gen; 
+    string Gen;
     int SocialID; // CMND
     string pass;
 };
-struct Student{
+
+struct Student {
     int No;
-    int StuID;
+    string StuID;
     string Fname;
     string Lname;
     string Gen;
-    int day;
-    int month;
-    int year;
+    int day, month, year;
     int SocialID;
     string Class;
     string Pass;
 };
-struct Cours{
+
+struct Cours {
 
 };
-void ReadStudent(ifstream& file, Student*& S, int& n); 
-void WriteStudent(ofstream& file,Student* S,int n);
+void Color(int i);
+void gotoxy(int x, int y);
+void Paint(int x, int y, string a, int color);
+int change(string s);
+void ReadStudent(Student*& S, int& n);
+void PrintStudent(Student* S, int n);
+void PrintElement(Student* S, int i);
+void encode(string& s);
+bool CheckPass(Student* S, int n, int& pos, string user, string Pass);
+
 // Doc file CSV va luu vao cau truc 
-void Color(int i );
+
 
 
 

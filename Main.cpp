@@ -1,31 +1,46 @@
 #include "Header.h"
 
-int main(){
-    system("cls");
-    Student*S;
-    int n=0;
-    ifstream f1;
-    ofstream f2;
-    f1.open("Student.csv",ios_base::in);
-    if(f1.fail())
-    {
-        cout <<"Cannot read file"<<endl;
-        return 0;
-    }
-    ReadStudent(f1,S,n);
-    for(int i=0;i<n;i++)
-    {
-    cout << S[i].No << ", ";
-    cout << S[i].StuID << ", ";
-    cout << S[i].Fname << ", ";
-    cout << S[i].Lname << ", ";
-    cout << S[i].Gen << ", ";
-    cout << S[i].SocialID << ", ";
-    cout << S[i].Data.day<<"/"<<S[i].Data.month<<"/"<<S[i].Data.year << ", ";
-    cout << S[i].Class << ", ";
-    cout << S[i].Pass << endl;
-    f1.close();
+int main() {
+    Student* S;
+    int n = 0;
+    ReadStudent(S, n);
+    bool check = true;
+    string user, password;
+    do {
+        system("cls");
+        Paint(15, 4, "**************************************", 14);
+        Paint(15, 6, "**", 14);
+        Paint(25, 6, "     LOGIN", 10);
+        Paint(50, 6, "**", 14);
+        Paint(15, 8, "**************************************", 14);
+        cin.ignore();
+        Paint(15, 12, "ID of User: ", 10);
+        getline(cin, user);
+        cin.ignore();
+        Paint(15, 15, "Password: ", 10);
+        encode(password);
+        int pos = -1;
+        if (CheckPass(S, n, pos, user, password) == true) {
+            system("cls");
+            PrintElement(S, pos);
+            // Cac nhiem vu tiep theo cua sinh vien
 
+
+
+        }
+        else {
+            system("cls");
+            Color(4);
+            cout << "Khong co tai khoan trong he thong!";
+            Sleep(3000);
+            system("cls");
+        }
+
+
+    } while (true);
+
+
+    delete[] S;
     system("pause");
     return 0;
 }
