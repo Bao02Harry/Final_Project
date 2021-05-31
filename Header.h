@@ -1,6 +1,7 @@
 #ifndef Header_h
 #define Header_h
 #include <iostream>
+#include <conio.h>
 #include <fstream>
 #include <windows.h>
 #include <string>
