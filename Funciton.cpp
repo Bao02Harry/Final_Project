@@ -1,11 +1,11 @@
 #include "Header.h"
 void Color(int i) {
-    SetConsoleTextAttribute((GetStdHandle), i);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
 }
 // Toa do 
 void gotoxy(int x, int y) {
     HANDLE color;
-    color = GetStdHandle(STD_OUTPUT_HANDLE);
+    color = GetStdHandle;
     COORD coor = { x,y };
     SetConsoleCursorPosition(color, coor);
 }
@@ -128,7 +128,7 @@ void PrintElement(Student* S, int i) {
 void encode(string& s) {
     char ch;
     int dem = 0;
-    while ((ch = getch()) != 13) {
+    while ((ch = _getch()) != 13) {
         if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')) {
             cout << "*";
             s[dem++] = ch;
@@ -143,6 +143,7 @@ void encode(string& s) {
 
     }
     s[dem] = 0;
+    cout << s << endl;
 }
 // kiem tra tai khoan dang nhap
 bool CheckPass(Student* S, int n, int& pos, string user, string Pass) {

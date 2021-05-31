@@ -7,6 +7,7 @@ int main() {
     bool check = true;
     string user, password;
     do {
+        Color(10);
         system("cls");
         Paint(15, 4, "**************************************", 14);
         Paint(15, 6, "**", 14);
@@ -18,11 +19,14 @@ int main() {
         getline(cin, user);
         cin.ignore();
         Paint(15, 15, "Password: ", 10);
-        encode(password);
+        getline(cin, password);
         int pos = -1;
+        cout << CheckPass(S, n, pos, user, password) << endl;
         if (CheckPass(S, n, pos, user, password) == true) {
             system("cls");
+            Color(10);
             PrintElement(S, pos);
+            system("pause");
             // Cac nhiem vu tiep theo cua sinh vien
 
 
