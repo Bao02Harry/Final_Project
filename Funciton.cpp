@@ -14,9 +14,8 @@ void Paint(int x, int y, string a, int color) {
     gotoxy(x, y);
     Color(color);
     cout << a;
-    Color(7);
 }
-// Dem phan tu cua danh sach hco sinh
+// Dem phan tu cua danh sach hoc sinh
 int countStu() {
     int count = 0;
     errno_t err;
@@ -93,35 +92,73 @@ void ReadStudent(Student*& S, int& n) {
         i++;
     }
     n = i - 1;
-    cout << n << endl;
     file.close();
 }
-// Xuat toan bo file
 
-void Print(Student* S, int n) {
+// Dem phan tu cua danh sach giao vien
+int countTech() {
+    int count = 0;
+    ifstream infile;
+    infile.open("Teachers.csv");
+    if (!infile.is_open()) {
+        return 0;
+    }
+    string line;
+    getline(infile, line);
+    while (infile) {
+        getline(infile, line);
+        count++;
+    }
+    infile.close();
+    return count;
+}
+
+// doc file CSV cua giao vien
+void ReadTeacher(Teacher*& T, int& n) {
+    T = new Teacher[countTech()];
+    ifstream file("Teachers.csv");
+    if (!file.is_open()) {
+        cout << "Cannot open file." << endl;
+        return;
+    }
+    string line;
+    string SNo;
+    string SSocialID;
+    int i = 0;
+    getline(file, line);
+    while (file) {
+        getline(file, SNo, ',');
+        getline(file, T[i].TeID, ',');
+        getline(file, T[i].Fname, ',');
+        getline(file, T[i].Lname, ',');
+        getline(file, T[i].Gen, ',');
+        getline(file, SSocialID, ',');
+        getline(file, T[i].Faculty, ',');
+        getline(file, T[i].Pass);
+
+        T[i].No = change(SNo);
+        T[i].SocialID= change(SSocialID);
+        i++;
+    }
+    n = i - 1;
+    file.close();
+}
+// Xuat toan bo file sinh vien
+void PrintStu(Student* S, int n) {
     for (int i = 0; i < n; i++) {
-        cout << S[i].No << endl;
-        cout << S[i].StuID << endl;
-        cout << S[i].Fname << endl;
-        cout << S[i].Lname << endl;
-        cout << S[i].Gen << endl;
-        cout << S[i].day << "/" << S[i].month << "/" << S[i].year << endl;
-        cout << S[i].SocialID << endl;
-        cout << S[i].Class << endl;
-        cout << S[i].Pass << endl;
+        cout << "Sinh vien." << endl;
+        cout << "So thu tu: " << S[i].No << endl;
+        cout << "MSSV: " << S[i].StuID << ". Ho ten: " << S[i].Fname << " " << S[i].Lname << endl;
+        cout << "Gioi tinh: " << S[i].Gen << ". Nam sinh: " << S[i].day << "/" << S[i].month << "/" << S[i].year << endl;
+        cout << "CMND: "<< S[i].SocialID << ". Lop: " << S[i].Class << endl;
     }
 }
-// Xuat 1 phan tu 
-void PrintElement(Student* S, int i) {
-    cout << S[i].No << endl;
-    cout << S[i].StuID << endl;
-    cout << S[i].Fname << endl;
-    cout << S[i].Lname << endl;
-    cout << S[i].Gen << endl;
-    cout << S[i].day << "/" << S[i].month << "/" << S[i].year << endl;
-    cout << S[i].SocialID << endl;
-    cout << S[i].Class << endl;
-    cout << S[i].Pass << endl;
+// Xuat 1 phan tu sinh vien
+void PrintElementStu(Student* S, int i) {
+    cout << "So thu tu: " << S[i].No << endl;
+    cout << "MSSV: " << S[i].StuID << ". Ho ten: " << S[i].Fname << " " << S[i].Lname << endl;
+    cout << "Gioi tinh: " << S[i].Gen << ". Nam sinh: " << S[i].day << "/" << S[i].month << "/" << S[i].year << endl;
+    cout << "CMND: " << S[i].SocialID << ". Lop: " << S[i].Class << endl;
 }
 
 //---------------------------------------------Ma hoa mat khau khi dang nhap---------------------------------------
@@ -145,12 +182,60 @@ void encode(string& s) {
     s[dem] = 0;
     cout << s << endl;
 }
-// kiem tra tai khoan dang nhap
-bool CheckPass(Student* S, int n, int& pos, string user, string Pass) {
+// kiem tra tai khoan dang nhap sinh vien
+bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass) {
     for (int i = 0; i < n; i++) {
         pos = i;
         if (S[i].StuID == user && S[i].Pass == Pass)
             return true;
     }
     return false;
+}
+
+// kiem tra tai khoan dang nhap giao vien
+bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass) {
+    for (int i = 0; i < m; i++) {
+        pos = i;
+        if (T[i].TeID == user && T[i].Pass == Pass)
+            return true;
+    }
+    return false;
+}
+
+// Xuat toan bo file giao vien
+void PrintTech(Teacher * T, int m) {
+    for (int i = 0; i < m; i++) {
+        cout << "Giao vien." << endl;
+        cout << "So thu tu: " << T[i].No << endl;
+        cout << "MSGV: " << T[i].TeID << ". Ho ten: " << T[i].Fname << " " << T[i].Lname << endl;
+        cout << "Gioi tinh: " << T[i].Gen << ". CMND: " << T[i].SocialID << ". Khoa: " << T[i].Faculty << endl;
+    }
+}
+// Xuat 1 phan tu giao vien
+void PrintElementTech(Teacher* T, int i) {
+    cout << "Giao vien." << endl;
+    cout << "So thu tu: " << T[i].No << endl;
+    cout << "MSGV: " << T[i].TeID << ". Ho ten: " << T[i].Fname << " " << T[i].Lname << endl;
+    cout << "Gioi tinh: " << T[i].Gen << ". CMND: " << T[i].SocialID << ". Khoa: " << T[i].Faculty << endl;
+}
+// Dinh dang
+void Format() {
+    system("cls");
+    Color(14);
+    cout << "\t\t\t ****************************" << endl;
+    cout << "\t\t\t\t      ";
+    Color(10);
+    cout << "LOGIN" << endl;
+    Color(14);
+    cout << "\t\t\t ****************************" << endl;
+}
+
+// Nhap du lieu vao
+void input(string& user, string& pass) {
+    cin.ignore();
+    Paint(15, 20, "ID of User: ", 10);
+    getline(cin, user);
+    cin.ignore();
+    Paint(15, 20, "Password: ", 10);
+    getline(cin, pass);
 }

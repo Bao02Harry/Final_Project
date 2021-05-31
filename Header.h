@@ -11,12 +11,13 @@
 using namespace std;
 struct Teacher {
     int No;// so thu tu
-    int TeID;
+    string TeID;
     string Fname;
     string Lname;
     string Gen;
     int SocialID; // CMND
-    string pass;
+    string Faculty;
+    string Pass;
 };
 
 struct Student {
@@ -38,12 +39,29 @@ void Color(int i);
 void gotoxy(int x, int y);
 void Paint(int x, int y, string a, int color);
 int change(string s);
-void ReadStudent(Student*& S, int& n);
-void PrintStudent(Student* S, int n);
-void PrintElement(Student* S, int i);
-void encode(string& s);
-bool CheckPass(Student* S, int n, int& pos, string user, string Pass);
 
+
+int countStu();
+void ReadStudent(Student*& S, int& n);
+void PrintStu(Student* S, int n);
+void PrintElementStu(Student* S, int i);
+
+
+int countTech();
+void ReadTeacher(Teacher*& T, int& n);
+void PrintTech(Teacher* T, int m);
+void PrintElementTech(Teacher* T, int i);
+
+
+void encode(string& s);
+
+
+bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass);
+bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass);
+
+
+void Format();
+void input(string& user, string& pass);
 // Doc file CSV va luu vao cau truc 
 
 
