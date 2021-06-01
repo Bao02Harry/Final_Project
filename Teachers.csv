@@ -1,6 +1,6 @@
 No,Teacher ID,First Name,Last Name,Gender,Social ID,Faculty,Password
 1,12101345,Nguyen Le Anh,Tu,Nam,234887615,Cong Nghe Thong Tin,123456789
-2,12596361,Mai Thi Lan,Vy,Nu,98621983,Cong Nghe Thong Tin,123456789
+2,12596361,Mai Thi Lan,Vy,Nu,986219843,Cong Nghe Thong Tin,123456789
 3,12358685,Tran  Huy,Quang,Nam,165089650,Cong Nghe Thong Tin,123456789
 4,12876513,Nguyen Le Hoang,Dung,Nam,568369102,Cong Nghe Thong Tin,123456789
 5,12376845,Vo Van,Viet,Nam,486215366,Cong Nghe Thong Tin,123456789
@@ -30,7 +30,7 @@ No,Teacher ID,First Name,Last Name,Gender,Social ID,Faculty,Password
 29,17650866,Nguyen Duc,Kien,Nam,636911022,Moi Truong hoc,123456789
 30,17086541,Vo Van,Toan,Nam,102369425,Moi Truong hoc,123456789
 31,20685632,Vo Viet,Tho,Nam,156502566,Dai cuong,123456789
-32,20569862,Le Viet,Thang,Nam,15984160,Dai cuong,123456789
+32,20569862,Le Viet,Thang,Nam,125984160,Dai cuong,123456789
 33,20589854,Le Hoan,My,Nu,159877818,Dai cuong,123456789
 34,20598736,Nguyen Minh Hoang,Duc,Nam,589835990,Dai cuong,123456789
 35,20325519,Nguyen Duy,Duc,Nam,540235102,Dai cuong,123456789
