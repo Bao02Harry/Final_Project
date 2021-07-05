@@ -17,8 +17,54 @@ int main() {
             system("cls");
             Color(10);
             PrintElementTech(T, pos);
-            system("pause");
             // Cac nhiem vu tiep theo cua giao vien
+     
+            system("pause");
+            system("cls");
+            int check_temp = true;
+            int select = 0;
+            do {
+                cout << "1. Update your personal information." << endl;
+                cout << "2. Create a course registration session." << endl;
+                cout << "3. Add new 1st year students to 1st year classes." << endl;
+                cout << "0. Back." << endl;
+                cout << "\t Your select: ";
+                cin >> select;
+                
+                switch (select) {
+                case 1: {
+                    system("cls");
+
+                    cout << "\t1. Update your personal information." << endl;
+                    UpdateInforTeach(T, m, user);
+                    WriteAfterUdateTeach(T, m);
+
+
+
+                } break;
+                case 2: {
+
+                } break;
+                case 3: {
+
+                } break;
+                case 0: {
+                    check_temp = false;
+                } break;
+                }
+            } while (check_temp);
+
+            // cap nhat thong tin cua ban than
+
+                  // Password
+
+
+                  //
+
+
+            // 
+            
+            
 
 
 
@@ -42,7 +88,7 @@ int main() {
             }
         }
 
-    } while (true);
+    } while (check );
     
 
     delete[] S;

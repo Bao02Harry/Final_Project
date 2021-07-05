@@ -59,6 +59,9 @@ void encode(string& s);
 bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass);
 bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass);
 
+// Cap nhat thong tin giao vien
+void UpdateInforTeach(Teacher*& T, int m, string ID);
+void WriteAfterUdateTeach(Teacher* T, int m);
 
 void Format();
 void input(string& user, string& pass);

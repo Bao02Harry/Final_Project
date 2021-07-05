@@ -239,3 +239,49 @@ void input(string& user, string& pass) {
     Paint(15, 20, "Password: ", 10);
     getline(cin, pass);
 }
+ // cap nhat thong tin ca nhan giao vien
+void UpdateInforTeach(Teacher*& T,int m, string ID) {
+    Teacher Temp;
+    cin.ignore();
+    cout << "+ Please, Input your personal information." << endl;
+    cout << "Your ID: ";
+    getline(cin, Temp.TeID);
+    cout << "Your first name: ";
+    getline(cin, Temp.Fname);
+    cout << "Your last name: ";
+    getline(cin, Temp.Lname);
+    cout << "Your Gender: ";
+    getline(cin, Temp.Gen);
+    cout << "Your Password: ";
+    getline(cin, Temp.Pass);
+    cout << "Your Faculty: ";
+    getline(cin, Temp.Faculty);
+    cout << "Your social id: ";
+    cin >> Temp.SocialID;
+    for (int i = 0; i < m; i++) {
+        if (T[i].TeID == ID) {
+            T[i].TeID = Temp.TeID;
+            T[i].Fname = Temp.Fname;
+            T[i].Lname = Temp.Lname;
+            T[i].Gen = Temp.Gen;
+            T[i].Pass = Temp.Pass;
+            T[i].Faculty = Temp.Faculty;
+            T[i].SocialID = Temp.SocialID;
+        }
+    }
+}
+
+// ghi lai file sau khi cap nhap
+void WriteAfterUdateTeach(Teacher* T, int m) {
+    ofstream outfile;
+    outfile.open("Teacher1.csv");
+    if (!outfile.is_open()) {
+        cout << "Can not open file" << endl;
+        return;
+    }
+    outfile << "No" << "," << "Teacher ID" << "," << "First Name" << "," << "Last Name" << "," << "Gender" << "," << "Social ID" << "," << "Faculty" << "," << "Password" << endl;
+    for (int i = 0; i < m; i++) {
+        outfile << T[i].No << "," << T[i].TeID << "," << T[i].Fname << "," << T[i].Lname << "," << T[i].Gen << "," << T[i].SocialID << "," << T[i].Faculty << "," << T[i].Pass << endl;
+    }
+    outfile.close();
+}
