@@ -285,3 +285,60 @@ void WriteAfterUdateTeach(Teacher* T, int m) {
     }
     outfile.close();
 }
+// Dem phan tu cua danh sach khoa hoc
+int countCourses() {
+    int count = 0;
+    ifstream infile;
+    infile.open("course.csv");
+    if (!infile.is_open()) {
+        return 0;
+    }
+    string line;
+    getline(infile, line);
+    while (infile) {
+        getline(infile, line);
+        count++;
+    }
+    infile.close();
+    return count;
+}
+
+// doc file courses
+void ReadCourses(Courses*& C, int& t) {
+    t = countCourses();
+    C = new Courses[t];
+    ifstream infile;
+    infile.open("course.csv");
+    if (!infile.is_open()) {
+        return;
+    }
+    int i = 0;
+    string line;
+    getline(infile, line);
+    while (infile) {
+        getline(infile, C[i].ID, ',');
+        getline(infile, C[i].CName, ',');
+        getline(infile, C[i].TName, ',');
+        string tempCredit;
+        getline(infile, tempCredit, ',');
+        C[i].Credits = change(tempCredit);
+        string tempMax;
+        getline(infile, tempMax, ',');
+        C[i].MaxMem = change(tempMax);
+        string tempday1;
+        getline(infile, tempday1, ',');
+        C[i].day1 = change(tempday1);
+        getline(infile, C[i].session1, ',');
+        string tempday2;
+        getline(infile, tempday2, ',');
+        C[i].day2 = change(tempday2);
+        getline(infile, C[i].session2);
+        i++;
+    }
+    infile.close();
+}
+void PrintCourses(Courses* C, int t) {
+    for (int i = 0; i < t; i++) {
+        cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << endl;
+    }
+}

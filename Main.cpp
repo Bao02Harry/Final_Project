@@ -3,10 +3,13 @@
 int main() {
     Student* S;
     Teacher* T;
+    Courses* C;
     int n = 0;
     int m = 0;
+    int t = 0;
     ReadStudent(S, n);
     ReadTeacher(T, m);
+    ReadCourses(C, t);
     bool check = true;
     string user, password;
     do {
@@ -34,16 +37,16 @@ int main() {
                 switch (select) {
                 case 1: {
                     system("cls");
-
                     cout << "\t1. Update your personal information." << endl;
                     UpdateInforTeach(T, m, user);
                     WriteAfterUdateTeach(T, m);
-
-
-
                 } break;
                 case 2: {
-
+                    system("cls");
+                    cout << "2. Create a course registration session." << endl;
+                    cout << "Courses existed: " << endl;
+                    PrintCourses(C, t);
+                    
                 } break;
                 case 3: {
 
@@ -93,6 +96,7 @@ int main() {
 
     delete[] S;
     delete[] T;
+    delete[] C;
     system("pause");
     return 0;
 }

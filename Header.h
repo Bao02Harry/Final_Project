@@ -32,9 +32,18 @@ struct Student {
     string Pass;
 };
 
-struct Cours {
-
+struct Courses {
+    string ID;
+    string CName;
+    string TName;
+    int Credits;
+    int MaxMem;
+    int day1;
+    string session1;
+    int day2;
+    string session2; 
 };
+
 void Color(int i);
 void gotoxy(int x, int y);
 void Paint(int x, int y, string a, int color);
@@ -65,8 +74,10 @@ void WriteAfterUdateTeach(Teacher* T, int m);
 
 void Format();
 void input(string& user, string& pass);
-// Doc file CSV va luu vao cau truc 
-
+// Doc file CSV courses 
+int countCourses();
+void ReadCourses(Courses*& C, int& t);
+void PrintCourses(Courses* C, int t);
 
 
 
