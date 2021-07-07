@@ -50,15 +50,16 @@ int main() {
                 }break;
                 case 2: {
                     system("cls");
-                    cout << "\t1. Update your personal information." << endl;
+                    cout << "\t2. Update your personal information." << endl;
                     UpdateInforTeach(T, m, user);
                     WriteAfterUdateTeach(T, m);
                     system("pause");
                 } break;
-                case 4: {
+                case 3: {
                     system("cls");
-                    cout << "2. Create a course registration session." << endl;
+                    cout << "3. Create a course registration session." << endl;
                     cout << "Courses existed: " << endl;
+                    registerCourses(C,t);
                     PrintCourses(C, t);
                     system("pause");
                 } break;

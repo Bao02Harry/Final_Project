@@ -79,7 +79,7 @@ void input(string& user, string& pass);
 int countCourses();
 void ReadCourses(Courses*& C, int& t);
 void PrintCourses(Courses* C, int t);
-
+void registerCourses(Courses* C, int t);
 
 
 

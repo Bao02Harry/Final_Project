@@ -361,3 +361,54 @@ void PrintCourses(Courses* C, int t) {
         cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << endl;
     }
 }
+
+void registerCourses(Courses* C, int t)
+{
+    int day = 0, month = 0, option = 0;
+    cout << "Enter Current time to register Course";
+    do {
+        cout << "Day: "; cin >> day;
+        cout << "Month: "; cin >> month;
+    } while (checkdate(day,month) == false);
+    while (true)
+    {
+        system("cls");
+        Format("Courses Registration");
+        cout << "\n\t1. View list of courses";
+        cout << "\n\t2. Create a new course";
+        cout << "\n\t3. Update course's information";
+        cout << "\n\t4. Delete a course";
+        cout << "\n\t.0. Back forward";
+        cout << "\n\t**************************************";
+        cout << "\n\t Choose the option you wanna do: "; cin >> option;
+        while ((option < 0) || (option > 4))
+        {
+            cout << "The number you enter isn't suitble\nPlease choose it again: "; cin >> option;
+        }
+        switch (option)
+        {
+        case 1:
+        {
+            cout << "List of courses\n";
+            PrintCourses(C, t);
+        }break;
+        case 2:
+        {
+
+        }break;
+        case 3:
+        {
+
+        }break;
+        case 4:
+        {
+
+        }break;
+        case 0:
+        {
+            return;
+        }
+        }
+    }
+    system("pause");
+}
