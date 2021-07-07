@@ -219,13 +219,13 @@ void PrintElementTech(Teacher* T, int i) {
     cout << "Gioi tinh: " << T[i].Gen << ". CMND: " << T[i].SocialID << ". Khoa: " << T[i].Faculty << endl;
 }
 // Dinh dang
-void Format() {
+void Format(string s) {
     system("cls");
     Color(14);
-    cout << "\t\t\t ****************************" << endl;
+    cout << "\n\t\t\t ****************************" << endl;
     cout << "\t\t\t\t      ";
     Color(10);
-    cout << "LOGIN" << endl;
+    cout << s << endl;
     Color(14);
     cout << "\t\t\t ****************************" << endl;
 }
@@ -242,6 +242,7 @@ void input(string& user, string& pass) {
  // cap nhat thong tin ca nhan giao vien
 void UpdateInforTeach(Teacher*& T,int m, string ID) {
     Teacher Temp;
+    Format("Update information");
     cin.ignore();
     cout << "+ Please, Input your personal information." << endl;
     cout << "Your ID: ";
@@ -252,8 +253,6 @@ void UpdateInforTeach(Teacher*& T,int m, string ID) {
     getline(cin, Temp.Lname);
     cout << "Your Gender: ";
     getline(cin, Temp.Gen);
-    cout << "Your Password: ";
-    getline(cin, Temp.Pass);
     cout << "Your Faculty: ";
     getline(cin, Temp.Faculty);
     cout << "Your social id: ";
@@ -264,11 +263,31 @@ void UpdateInforTeach(Teacher*& T,int m, string ID) {
             T[i].Fname = Temp.Fname;
             T[i].Lname = Temp.Lname;
             T[i].Gen = Temp.Gen;
-            T[i].Pass = Temp.Pass;
             T[i].Faculty = Temp.Faculty;
             T[i].SocialID = Temp.SocialID;
         }
     }
+}
+
+void changepass(Teacher*& T, int m, string ID)
+{
+    Teacher Temp;
+    cin.ignore();
+    Paint(15, 20, "Enter your password: ", 10);
+    getline(cin, Temp.Pass);
+    for (int i = 0; i < m; i++)
+        if (T[i].TeID == ID)
+        {
+            if (Temp.Pass == T[i].Pass)
+            {
+                cin.ignore();
+                Paint(15, 20, "Enter new password: ", 10);
+                getline(cin, Temp.Pass);
+                T[i].Pass = Temp.Pass;
+            }
+            else cout << "Wrong password\n";
+        }
+
 }
 
 // ghi lai file sau khi cap nhap

@@ -71,8 +71,9 @@ bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass);
 // Cap nhat thong tin giao vien
 void UpdateInforTeach(Teacher*& T, int m, string ID);
 void WriteAfterUdateTeach(Teacher* T, int m);
+void changepass(Teacher*& T, int m, string ID);
 
-void Format();
+void Format(string s);
 void input(string& user, string& pass);
 // Doc file CSV courses 
 int countCourses();
