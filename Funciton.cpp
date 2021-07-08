@@ -290,7 +290,7 @@ void changepass(Teacher*& T, int m, string ID)
 // ghi lai file sau khi cap nhap
 void WriteAfterUdateTeach(Teacher* T, int m) {
     ofstream outfile;
-    outfile.open("Teacher1.csv");
+    outfile.open("Teacher.csv");
     if (!outfile.is_open()) {
         cout << "Can not open file" << endl;
         return;
@@ -341,13 +341,9 @@ void ReadCourses(Courses*& C, int& t) {
         string tempMax;
         getline(infile, tempMax, ',');
         C[i].MaxMem = change(tempMax);
-        string tempday1;
-        getline(infile, tempday1, ',');
-        C[i].day1 = change(tempday1);
+        getline(infile, C[i].day1, ',');
         getline(infile, C[i].session1, ',');
-        string tempday2;
-        getline(infile, tempday2, ',');
-        C[i].day2 = change(tempday2);
+        getline(infile, C[i].day2, ',');
         getline(infile, C[i].session2, ',');
         string tempdaystart;
         getline(infile, tempdaystart, '/');
@@ -422,10 +418,137 @@ bool checkdate(Courses* C, int i, int day, int month) {
     }
     return false;
 }
-void registerCourses(Courses* C, int t)
+// create new course
+void CreateCourse(Courses*& C, int& t) {
+    Courses temp;
+    cout << "Please, Enter new course's information:" << endl;
+    cin.ignore();
+    cout << "Course Id: ";
+    getline(cin, temp.ID);
+    cout << "Course Name: ";
+    getline(cin, temp.CName);
+    cout << "Teacher Name: ";
+    getline(cin, temp.TName);
+    cout << "Number of Credits: ";
+    cin >>temp.Credits;
+    cout << "The maximum number of students in the course: ";
+    cin >> temp.MaxMem;
+    cin.ignore();
+    cout << "Day1 of the week: ";
+    getline(cin, temp.day1);
+    cout << "Session1: ";
+    getline(cin, temp.session1);
+    cout << "Day2 of the week: ";
+    getline(cin, temp.day2);
+    cout << "Session2: ";
+    getline(cin, temp.session2);
+    cout << "Start day: ";
+    cin >> temp.daystart;
+    cout << "Start month: ";
+    cin >> temp.monthstart;
+    cout << "End day: ";
+    cin >> temp.dayend;
+    cout << "End month: ";
+    cin >> temp.monthend;
+    
+    Courses* Cnew = new Courses[t+1];
+    copy(C, C + t, Cnew);
+        Cnew[t].ID = temp.ID;
+        Cnew[t].CName = temp.CName;
+        Cnew[t].TName = temp.TName;
+        Cnew[t].Credits = temp.Credits;
+        Cnew[t].MaxMem = temp.MaxMem;
+        Cnew[t].day1 = temp.day1;
+        Cnew[t].session1 = temp.session1;
+        Cnew[t].day2 = temp.day2;
+        Cnew[t].session2 = temp.session2;
+        Cnew[t].daystart = temp.daystart;
+        Cnew[t].monthstart = temp.monthstart;
+        Cnew[t].dayend = temp.dayend;
+        Cnew[t].monthend = temp.monthend;
+        t++;
+        delete[]C;
+        C = Cnew;
+    
+}
+// Write new course
+void WriteCourse(Courses* C, int t) {
+    ofstream outfile;
+    outfile.open("course.csv");
+    if (!outfile.is_open()) {
+        return;
+    }
+    outfile << "Course id" << "," << "Course name" << "," << "Teacher name" << "," << "Number of credits" << "," << "The maximum number of students in the course" <<
+        "," << "Day1 of the week" << "," << "Session1" << "," << "Day2 of the week" << "," << "Session2" << "," << "Start date" << "," << "End date" << endl;
+    for (int i = 0; i < t; i++) {
+        outfile << C[i].ID << "," << C[i].CName << "," << C[i].TName << "," << C[i].Credits << "," << C[i].MaxMem << "," << C[i].day1 << "," << C[i].session1 << "," << C[i].day2 << "," <<
+            C[i].session2 << "," << C[i].daystart << "/" << C[i].monthstart << "," << C[i].dayend << "/" << C[i].monthend << endl;
+    }
+    outfile.close();
+}
+// Update courses
+void UpdateCourse(Courses*& C, int t) {
+    string CId;
+    cin.ignore();
+    cout << "Input the Course ID that need to update.";
+    getline(cin, CId);
+    int count = 0;
+    for (int i = 0; i < t; i++) {
+        if (C[i].ID == CId) {
+            count++;
+            Courses Temp;
+            system("cls");
+            Format("Update Course");
+            cout << "+ Please, Input new course's information:" << endl;
+            cout << "Course ID: ";
+            getline(cin, Temp.ID);
+            cout << "Course name: ";
+            getline(cin, Temp.CName);
+            cout << "Teacher name: ";
+            getline(cin, Temp.TName);
+            cout << "Number of Credits: ";
+            cin >> Temp.Credits;
+            cout << "The maximum number of students in the course:";
+            cin >> Temp.MaxMem;
+            cin.ignore();
+            cout << "Day1 of the week:";
+            getline(cin, Temp.day1);
+            cout << "Session1:";
+            getline(cin, Temp.session1);
+            cout << "Day2 of the week:";
+            getline(cin, Temp.day2);
+            cout << "Session2:";
+            getline(cin, Temp.session2);
+            cout << "Start day:";
+            cin >> Temp.daystart;
+            cout << "Start month:";
+            cin >> Temp.monthstart;
+            cout << "End day:";
+            cin >> Temp.dayend;
+            cout << "End month:";
+            cin >> Temp.monthend;
+            C[i].ID = Temp.ID;
+            C[i].CName = Temp.CName;
+            C[i].TName = Temp.TName;
+            C[i].Credits = Temp.Credits;
+            C[i].MaxMem = Temp.MaxMem;
+            C[i].day1 = Temp.day1;
+            C[i].session1 = Temp.session1;
+            C[i].day2 = Temp.day2;
+            C[i].session2 = Temp.session2;
+            C[i].daystart = Temp.daystart;
+            C[i].monthstart = Temp.monthstart;
+            C[i].dayend = Temp.dayend;
+            C[i].monthend = Temp.monthend;
+        }
+    }
+    if (count == 0)
+        cout << "Course do not exist" << endl;
+}
+void registerCourses(Courses*& C, int &t)
 {
     int day = 0, month = 0, option = 0;
-    cout << "Enter Current time to register Course" << endl;
+    cout << "\n\n\tEnter Current time to register Course" << endl;
     do {
         cout << "Day: "; cin >> day;
         cout << "Month: "; cin >> month;
@@ -450,23 +573,30 @@ void registerCourses(Courses* C, int t)
         {
         case 1:
         {
+            cout << "+ View list of courses." << endl;
             cout << "\t List of courses existing: \n";
             cout << "Current Time: " << day << "/" << month << endl;
             for (int i = 0; i < t; i++) {
                 if (checkdate(C, i, day, month)) {
-                    cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName <<", Time start: " << C[i].daystart <<"/" << C[i].monthstart << ", Time end: " <<
-                        C[i].dayend << "/" << C[i].monthend <<endl;
+                    cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << ", Time start: " << C[i].daystart << "/" << C[i].monthstart << ", Time end: " <<
+                        C[i].dayend << "/" << C[i].monthend << endl;
                 }
             }
             system("pause");
         }break;
         case 2:
         {
-
+            cout << "+ Create new course." << endl;
+            CreateCourse(C, t);
+            WriteCourse(C, t);
+            system("pause");
         }break;
         case 3:
         {
-
+            cout << "+ Update course's information." << endl;
+            UpdateCourse(C, t);
+            WriteCourse(C, t);
+            system("pause");
         }break;
         case 4:
         {

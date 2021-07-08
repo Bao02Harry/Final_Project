@@ -59,8 +59,7 @@ int main() {
                 case 3: {
                     system("cls");
                     cout << "\t3. Create a course registration session." << endl;
-                    cout << "\tCourses existed: " << endl;
-                    cout << t << endl;
+                    cout << "\tCourses existed: " << t << endl;
                     PrintCourses(C, t);
                     registerCourses(C, t);
                     system("pause");
