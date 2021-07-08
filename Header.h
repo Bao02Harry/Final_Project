@@ -41,9 +41,17 @@ struct Courses {
     int day1;
     string session1;
     int day2;
+<<<<<<< HEAD
     string session2; 
     int start;
     int end;
+=======
+    string session2;
+    int daystart;
+    int monthstart;
+    int dayend;
+    int monthend;
+>>>>>>> 0e67a6c984acda6d76b3fa08b6a6538577656c0a
 };
 
 void Color(int i);
@@ -81,9 +89,14 @@ void input(string& user, string& pass);
 int countCourses();
 void ReadCourses(Courses*& C, int& t);
 void PrintCourses(Courses* C, int t);
+<<<<<<< HEAD
 void deletecourse(Courses*& C, int& t);
 void createcourse(Courses*& C, int& t);
 void updatecourse(Courses*& C, int t);
+=======
+bool CheckTimeInput(int day, int month);
+bool checkdate(Courses* C, int i, int day, int month);
+>>>>>>> 0e67a6c984acda6d76b3fa08b6a6538577656c0a
 void registerCourses(Courses* C, int t);
 
 

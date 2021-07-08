@@ -44,8 +44,9 @@ int main() {
                 case 1:
                 {
                     system("cls");
-                    Format("Change password");
+                    Format(" Change password");
                     changepass(T, m, user);
+                    WriteAfterUdateTeach(T, m);
                     system("pause");
                 }break;
                 case 2: {
@@ -57,11 +58,15 @@ int main() {
                 } break;
                 case 3: {
                     system("cls");
-                    cout << "3. Create a course registration session." << endl;
-                    cout << "Courses existed: " << endl;
-                    registerCourses(C,t);
+                    cout << "\t3. Create a course registration session." << endl;
+                    cout << "\tCourses existed: " << endl;
+                    cout << t << endl;
                     PrintCourses(C, t);
+                    registerCourses(C, t);
                     system("pause");
+                } break;
+                case 4: {
+
                 } break;
                 case 5: {
 
@@ -70,8 +75,9 @@ int main() {
                     check_temp = false;
                 } break;
                 case -1: {
-                    exit(0);
-                }
+                    check = false;
+                    check_temp = false;
+                } break;
                 }
             } while (check_temp);
 
@@ -136,8 +142,8 @@ int main() {
                     check_temp = false;
                 } break;
                 case -1: {
-                    exit(0);
-                }
+                    check = false;
+                } break;
                 }
             } while (check_temp);
 
@@ -149,10 +155,10 @@ int main() {
             Sleep(3000);
             system("cls");
         }
-        
 
-    } while (check );
-    
+
+    } while (check);
+
 
     delete[] S;
     delete[] T;
