@@ -42,13 +42,15 @@ struct Courses {
     string session1;
     int day2;
     string session2; 
+    int start;
+    int end;
 };
 
 void Color(int i);
 void gotoxy(int x, int y);
 void Paint(int x, int y, string a, int color);
 int change(string s);
-
+bool checkdate(int day, int month, int year);
 
 int countStu();
 void ReadStudent(Student*& S, int& n);
@@ -79,8 +81,10 @@ void input(string& user, string& pass);
 int countCourses();
 void ReadCourses(Courses*& C, int& t);
 void PrintCourses(Courses* C, int t);
+void deletecourse(Courses*& C, int& t);
+void createcourse(Courses*& C, int& t);
+void updatecourse(Courses*& C, int t);
 void registerCourses(Courses* C, int t);
-
 
 
 

@@ -34,6 +34,31 @@ int countStu() {
     return count / 8;
 }
 
+bool checkdate(int day, int month, int year)
+{
+    if ((day < 1) || (month < 1) || (month > 12) || (year < 1)) return false;
+    switch (month)
+    {
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+    {
+        if (day > 31) return false;
+    }break;
+    case 4: case 6: case 9: case 11:
+    {
+        if (day > 30) return false;
+    }break;
+    case 2:
+    {
+        if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))
+        {
+            if (day > 29) return false;
+        }
+        else if (day > 28) return false;
+    }
+    }
+    return true;
+}
+
 // chuyen chuoi sang so
 int change(string s) {
     int n = s.length();
@@ -362,6 +387,135 @@ void PrintCourses(Courses* C, int t) {
     }
 }
 
+bool IDcourse(Courses* C,int t, string s)
+{
+    for (int i = 0; i < t; i++)
+    {
+        if (C[i].ID == s) return false;
+    }
+    return true;
+}
+
+void updatecourse(Courses*& C, int t)
+{
+    ofstream outfile;
+    outfile.open("course.csv");
+    if (!outfile.is_open())
+    {
+        cout << "Cannot open file";
+        return;
+    }
+    Courses temp;
+    cout << "Enter the ID of course you wanna update: "; getline(cin, temp.ID);
+    while (IDcourse(C, t, temp.ID) == true)
+    {
+        cout << "This ID isn't exist \nPlease check the ID again: ";
+        getline(cin, temp.ID);
+    }
+    cout << "Enter course name: "; getline(cin, temp.CName);
+    cout << "Enter teacher name: "; getline(cin, temp.TName);
+    cout << "Enter Number of credit: "; cin >> temp.Credits;
+    cout << "Enter the maximum number of students in the course: "; cin >> temp.MaxMem;
+    cout << "Enter first day of the week: "; cin >> temp.day1;
+    cout << "Enter session of first day: "; cin >> temp.session1;
+    cout << "Enter first day of the week: "; cin >> temp.day1;
+    cout << "Enter session of first day: "; cin >> temp.session1;
+    cout << "Enter day start of the course: "; cin >> temp.start;
+    cout << "Enter day end of the course: "; cin >> temp.end;
+    for (int i=0;i<t;i++)
+        if (C[i].ID == temp.ID)
+        {
+            C[i].CName = temp.CName;
+            C[i].TName = temp.TName;
+            C[i].Credits = temp.Credits;
+            C[i].MaxMem = temp.MaxMem;
+            C[i].day1 = temp.day1;
+            C[i].session1 = temp.session1;
+            C[i].day2 = temp.day2;
+            C[i].session2 = temp.session2;
+            C[i].start = temp.start;
+            C[i].end = temp.end;
+            return;
+        }
+}
+
+void createcourse(Courses*& C, int &t)
+{
+    Courses temp;
+    ofstream outfile;
+    outfile.open("course.csv");
+    if (!outfile.is_open())
+    {
+        cout << "Cannot open file";
+        return;
+    }
+    do {
+        cout << "Enter new course ID: ";
+        getline(cin, temp.ID);
+    } while (IDcourse(C, t, temp.ID) == false);
+    cout << "Enter course name: "; getline(cin, temp.CName);
+    cout << "Enter teacher name: "; getline(cin, temp.TName);
+    cout << "Enter Number of credit: "; cin >> temp.Credits;
+    cout << "Enter the maximum number of students in the course: "; cin >> temp.MaxMem;
+    cout << "Enter first day of the week: "; cin >> temp.day1;
+    cout << "Enter session of first day: "; cin >> temp.session1;
+    cout << "Enter first day of the week: "; cin >> temp.day1;
+    cout << "Enter session of first day: "; cin >> temp.session1;
+    cout << "Enter day start of the course: "; cin >> temp.start;
+    cout << "Enter day end of the course: "; cin >> temp.end;
+    realloc(C, t + 1 * sizeof(Courses));
+    C[t].ID = temp.ID;
+    C[t].CName = temp.CName;
+    C[t].TName = temp.TName;
+    C[t].Credits = temp.Credits;
+    C[t].MaxMem = temp.MaxMem;
+    C[t].day1 = temp.day1;
+    C[t].session1 = temp.session1;
+    C[t].day2 = temp.day2;
+    C[t].session2 = temp.session2;
+    C[t].start = temp.start;
+    C[t].end = temp.end;
+}
+
+void deletecourse(Courses*& C, int& t)
+{
+    ofstream outfile;
+    outfile.open("course.csv");
+    if (!outfile.is_open())
+    {
+        cout << "Cannot open file";
+        return;
+    }
+    Courses temp;
+    cout << "Enter the ID of course you wanna update: "; getline(cin, temp.ID);
+    while (IDcourse(C, t, temp.ID) == true)
+    {
+        cout << "This ID isn't exist \nPlease check the ID again: ";
+        getline(cin, temp.ID);
+    }
+    for (int i=0;i<t;i++)
+        if (C[i].ID == temp.ID)
+        {
+            while (i < (t - 1))
+            {
+                C[i].ID = C[i+1].ID;
+                C[i].CName = C[i+1].CName;
+                C[i].TName = C[i+1].TName;
+                C[i].Credits = C[i+1].Credits;
+                C[i].MaxMem = C[i+1].MaxMem;
+                C[i].day1 = C[i+1].day1;
+                C[i].session1 = C[i+1].session1;
+                C[i].day2 = C[i+1].day2;
+                C[i].session2 = C[i+1].session2;
+                C[i].start = C[i+1].start;
+                C[i].end = C[i+1].end;
+                i++;
+            }
+            t--;
+            return;
+        }
+}
+
 void registerCourses(Courses* C, int t)
 {
     int day = 0, month = 0, option = 0;
@@ -369,7 +523,7 @@ void registerCourses(Courses* C, int t)
     do {
         cout << "Day: "; cin >> day;
         cout << "Month: "; cin >> month;
-    } while (checkdate(day,month) == false);
+    } while (checkdate(day,month,1) == false);
     while (true)
     {
         system("cls");
@@ -391,18 +545,21 @@ void registerCourses(Courses* C, int t)
         {
             cout << "List of courses\n";
             PrintCourses(C, t);
+            system("pause");
         }break;
         case 2:
         {
-
+            createcourse(C, t);
+            system("pause");
         }break;
         case 3:
         {
-
+            updatecourse(C, t);
         }break;
         case 4:
         {
-
+            deletecourse(C, t);
+            system("pause");
         }break;
         case 0:
         {
