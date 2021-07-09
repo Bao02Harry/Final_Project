@@ -50,6 +50,27 @@ struct Courses {
     string session2;
 };
 
+struct StuCourses {
+    int No;
+    string StuID;
+    string Fname;
+    string Lname;
+    string Gen;
+    string Class;
+    string CouID;
+    string Cname;
+    int credits;
+    string Tname;
+    string day1;
+    string session1;
+    string day2;
+    string session2;
+    int daystart;
+    int monthstart;
+    int dayend;
+    int monthend;
+};
+
 void Color(int i);
 void gotoxy(int x, int y);
 void Paint(int x, int y, string a, int color);
@@ -77,7 +98,7 @@ bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass);
 // Cap nhat thong tin giao vien
 void UpdateInforTeach(Teacher*& T, int m, string ID);
 void WriteAfterUdateTeach(Teacher* T, int m);
-void changepass(Teacher*& T, int m, string ID);
+void changepassteacher(Teacher*& T, int m, string ID);
 
 void Format(string s);
 void input(string& user, string& pass);
@@ -92,6 +113,17 @@ void registerCourses(Courses* &C, int& t);
 void WriteCourse(Courses* C, int t);
 void UpdateCourse(Courses*& C, int t);
 
+//Cap nhap thong tin sinh vien
+void UpdateInforStu(Student*& S, int n, string ID);
+void changepassstu(Student*& S, int n, string ID);
+void WriteAfterUdateStu(Student* S, int n);
+
+//Cap nhat khoa hoc sinh vien
+int countStuC();
+void ReadStuC(StuCourses*& SC, int& p);
+void PrintStuC(StuCourses* SC, int p);
+void PrintElementStuC(StuCourses* SC, int i);
+void WriteAfterUdateStuC(StuCourses* SC, int p);
 
 
 #endif
