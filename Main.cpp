@@ -4,11 +4,12 @@ int main() {
     Student* S;
     Teacher* T;
     Courses* C;
-    StuCourses SC;
+    StuCourses* SC;
     int n = 0, m = 0, t = 0, p = 0;;
     ReadStudent(S, n);
     ReadTeacher(T, m);
     ReadCourses(C, t);
+    ReadStuC(SC, p);
     string user, password;
     do {
         Format("LOGIN");
@@ -120,6 +121,7 @@ int main() {
                     Format("Register course");
                     cout << "Courses existed: " << endl;
                     PrintCourses(C, t);
+                    registerStuC(SC, p, C, t, S, n, user);
                     system("pause");
                 } break;
                 case 4: {

@@ -119,7 +119,14 @@ void changepassstu(Student*& S, int n, string ID);
 void WriteAfterUdateStu(Student* S, int n);
 
 //Cap nhat khoa hoc sinh vien
+void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int m, string ID);
+void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int m, string ID);
+bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int position);
+int ExistCourse(Courses* C, int t, string ID);
+
+
 int countStuC();
+bool checkdateStuC(StuCourses* SC, int i, int day, int month);
 void ReadStuC(StuCourses*& SC, int& p);
 void PrintStuC(StuCourses* SC, int p);
 void PrintElementStuC(StuCourses* SC, int i);

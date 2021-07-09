@@ -487,6 +487,27 @@ bool checkdate(Courses* C, int i, int day, int month) {
     }
     return false;
 }
+
+bool checkdateStuC(StuCourses* SC, int i, int day, int month) {
+    if (month > SC[i].monthstart && month < SC[i].monthend) {
+        return true;
+    }
+    else {
+        if (month == SC[i].monthstart) {
+            if (day >= SC[i].daystart)
+                return true;
+            else
+                return false;
+        }
+        if (month == SC[i].monthend) {
+            if (day <= SC[i].dayend)
+                return true;
+            else
+                return false;
+        }
+    }
+    return false;
+}
 // create new course
 void CreateCourse(Courses*& C, int& t) {
     Courses temp;
@@ -684,8 +705,9 @@ void registerCourses(Courses*& C, int &t)
         }
     }
 }
+//////////////////////////////////////////Student register course
 
-void registerStuC(StuCourses*& SC, int& p,Courses*&C,int t)
+void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int n, string ID)
 {
     int day = 0, month = 0, option = 0;
     cout << "\n\n\tEnter Current time to register Course" << endl;
@@ -728,14 +750,29 @@ void registerStuC(StuCourses*& SC, int& p,Courses*&C,int t)
         {
             system("cls");
             Format("Register course");
-
+            int count = 0;
+            for (int i = 0; i < p; i++)
+            {
+                if (checkdateStuC(SC, i, day, month))
+                {
+                    if (SC[i].StuID == ID) count++;
+                    if (count == 5) continue;
+                }
+            }
+            if (count >= 5)  cout << "You can't register course because you have registered 5 courses\n";
+            else addStuC(SC, p, C, t,S,n,ID);
+            WriteAfterUdateStuC(SC, p);
             system("pause");
         }break;
         case 3:
         {
             system("cls");
             Format("List courses");
-
+            for (int i = 0; i < p; i++)
+            {
+                if (checkdateStuC(SC, i, day, month))
+                    if (SC[i].StuID == ID) PrintElementStuC(SC, i);
+            }
             system("pause");
         }break;
         case 4:
@@ -753,7 +790,65 @@ void registerStuC(StuCourses*& SC, int& p,Courses*&C,int t)
     }
 }
 
-//Dem phan tu trong danh sach sinh vien dang ky hoc phan
+void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, string ID)
+{
+    int position = 0;
+    string temp;
+    do {
+        cout << "Please enter exactly the course ID of the course you wanna register: ";
+        getline(cin, temp);
+        position = ExistCourse(C, t, temp);
+    } while ((position < 0) || (unduplicated(SC,p,C,t,ID,position)==false));
+    StuCourses* SCnew = new StuCourses[p + 1];
+    copy(SC, SC + p, SCnew);
+    SCnew[p].No = p;
+    SCnew[p].StuID = ID;
+    for (int i=0;i<n;i++)
+        if (S[i].StuID == ID)
+        {
+            SCnew[p].Fname = S[i].Fname;
+            SCnew[p].Lname = S[i].Lname;
+            SCnew[p].Gen = S[i].Gen;
+            SCnew[p].Class = S[i].Class;
+            continue;
+        }
+    SCnew[p].CouID = C[position].ID;
+    SCnew[p].Cname = C[position].CName;
+    SCnew[p].credits = C[position].Credits;
+    SCnew[p].Tname = C[position].TName;
+    SCnew[p].day1 = C[position].day1;
+    SCnew[p].session1 = C[position].session1;
+    SCnew[p].day2 = C[position].day2;
+    SCnew[p].session2 = C[position].session2;
+    SCnew[p].daystart = C[position].daystart;
+    SCnew[p].monthstart = C[position].monthstart;
+    SCnew[p].dayend = C[position].dayend;
+    SCnew[p].monthend = C[position].monthend;
+    p++;
+    delete[] SC;
+    SC = SCnew;
+}
+
+bool unduplicated(StuCourses* SC, int p,Courses*C,int t, string ID,int position)
+{
+    for (int i=0;i<p;i++)
+        if (SC[i].StuID == ID)
+        {
+            if (SC[i].day1 == C[position].day1)
+                if (SC[i].session1 == C[position].session1) return false;
+            if (SC[i].day2 == C[position].day2)
+                if (SC[i].session2 == C[position].session2) return false;
+        }
+    return true;
+}
+
+int ExistCourse(Courses* C, int t, string ID)
+{
+    for (int i = 0; i < t; i++)
+        if (C[i].ID == ID) return i;
+    return -1;
+}
+//Ghi file danh sach sinh vien dang ky hoc phan
 int countStuC() {
     int count = 0;
     ifstream infile;
