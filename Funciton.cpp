@@ -137,7 +137,7 @@ void ReadTeacher(Teacher*& T, int& n) {
         getline(file, T[i].Pass);
 
         T[i].No = change(SNo);
-        T[i].SocialID= change(SSocialID);
+        T[i].SocialID = change(SSocialID);
         i++;
     }
     n = i - 1;
@@ -150,7 +150,7 @@ void PrintStu(Student* S, int n) {
         cout << "So thu tu: " << S[i].No << endl;
         cout << "MSSV: " << S[i].StuID << ". Ho ten: " << S[i].Fname << " " << S[i].Lname << endl;
         cout << "Gioi tinh: " << S[i].Gen << ". Nam sinh: " << S[i].day << "/" << S[i].month << "/" << S[i].year << endl;
-        cout << "CMND: "<< S[i].SocialID << ". Lop: " << S[i].Class << endl;
+        cout << "CMND: " << S[i].SocialID << ". Lop: " << S[i].Class << endl;
     }
 }
 // Xuat 1 phan tu sinh vien
@@ -203,7 +203,7 @@ bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass) {
 }
 
 // Xuat toan bo file giao vien
-void PrintTech(Teacher * T, int m) {
+void PrintTech(Teacher* T, int m) {
     for (int i = 0; i < m; i++) {
         cout << "Giao vien." << endl;
         cout << "So thu tu: " << T[i].No << endl;
@@ -219,44 +219,41 @@ void PrintElementTech(Teacher* T, int i) {
     cout << "Gioi tinh: " << T[i].Gen << ". CMND: " << T[i].SocialID << ". Khoa: " << T[i].Faculty << endl;
 }
 // Dinh dang
-void Format() {
+void Format(string s) {
     system("cls");
     Color(14);
-    cout << "\t\t\t ****************************" << endl;
+    cout << "\n\t\t\t ****************************" << endl;
     cout << "\t\t\t\t      ";
     Color(10);
-    cout << "LOGIN" << endl;
+    cout << s << endl;
     Color(14);
     cout << "\t\t\t ****************************" << endl;
 }
 
 // Nhap du lieu vao
 void input(string& user, string& pass) {
-    cin.ignore();
     Paint(15, 20, "ID of User: ", 10);
     getline(cin, user);
-    cin.ignore();
     Paint(15, 20, "Password: ", 10);
     getline(cin, pass);
 }
- // cap nhat thong tin ca nhan giao vien
-void UpdateInforTeach(Teacher*& T,int m, string ID) {
+// cap nhat thong tin ca nhan giao vien
+void UpdateInforTeach(Teacher*& T, int m, string ID) {
     Teacher Temp;
+    Format("Update information");
     cin.ignore();
     cout << "+ Please, Input your personal information." << endl;
     cout << "Your ID: ";
     getline(cin, Temp.TeID);
-    cout << "Your first name: ";
+    cout << "Your First name: ";
     getline(cin, Temp.Fname);
-    cout << "Your last name: ";
+    cout << "Your Last name: ";
     getline(cin, Temp.Lname);
     cout << "Your Gender: ";
     getline(cin, Temp.Gen);
-    cout << "Your Password: ";
-    getline(cin, Temp.Pass);
     cout << "Your Faculty: ";
     getline(cin, Temp.Faculty);
-    cout << "Your social id: ";
+    cout << "Your Social id: ";
     cin >> Temp.SocialID;
     for (int i = 0; i < m; i++) {
         if (T[i].TeID == ID) {
@@ -264,17 +261,36 @@ void UpdateInforTeach(Teacher*& T,int m, string ID) {
             T[i].Fname = Temp.Fname;
             T[i].Lname = Temp.Lname;
             T[i].Gen = Temp.Gen;
-            T[i].Pass = Temp.Pass;
             T[i].Faculty = Temp.Faculty;
             T[i].SocialID = Temp.SocialID;
         }
     }
 }
 
+void changepass(Teacher*& T, int m, string ID)
+{
+    Teacher Temp;
+    cin.ignore();
+    Paint(15, 20, "Enter your old password: ", 10);
+    getline(cin, Temp.Pass);
+    for (int i = 0; i < m; i++)
+        if (T[i].TeID == ID)
+        {
+            if (Temp.Pass == T[i].Pass) {
+                Paint(15, 20, "Enter new password: ", 10);
+                getline(cin, Temp.Pass);
+                T[i].Pass = Temp.Pass;
+            }
+            else {
+                cout << "Your password is wrong.\n";
+            }
+        }
+}
+
 // ghi lai file sau khi cap nhap
 void WriteAfterUdateTeach(Teacher* T, int m) {
     ofstream outfile;
-    outfile.open("Teacher1.csv");
+    outfile.open("Teacher.csv");
     if (!outfile.is_open()) {
         cout << "Can not open file" << endl;
         return;
@@ -325,20 +341,271 @@ void ReadCourses(Courses*& C, int& t) {
         string tempMax;
         getline(infile, tempMax, ',');
         C[i].MaxMem = change(tempMax);
-        string tempday1;
-        getline(infile, tempday1, ',');
-        C[i].day1 = change(tempday1);
+        getline(infile, C[i].day1, ',');
         getline(infile, C[i].session1, ',');
-        string tempday2;
-        getline(infile, tempday2, ',');
-        C[i].day2 = change(tempday2);
-        getline(infile, C[i].session2);
+        getline(infile, C[i].day2, ',');
+        getline(infile, C[i].session2, ',');
+        string tempdaystart;
+        getline(infile, tempdaystart, '/');
+        C[i].daystart = change(tempdaystart);
+        string tempmonthstart;
+        getline(infile, tempmonthstart, ',');
+        C[i].monthstart = change(tempmonthstart);
+        string tempdayend;
+        getline(infile, tempdayend, '/');
+        C[i].dayend = change(tempdayend);
+        string tempmonthend;
+        getline(infile, tempmonthend);
+        C[i].monthend = change(tempmonthend);
+
         i++;
     }
+    t -= 1;
     infile.close();
 }
+
 void PrintCourses(Courses* C, int t) {
     for (int i = 0; i < t; i++) {
         cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << endl;
+    }
+}
+
+bool CheckTimeInput(int day, int month) {
+    switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12: {
+        if (day > 31 || day < 1)
+            return false;
+    } break;
+    case 4:
+    case 6:
+    case 9:
+    case 11: {
+        if (day > 30 || day < 1)
+            return false;
+    } break;
+    case 2: {
+        if (day > 39 || day < 1)
+            return false;
+    } break;
+    }
+    return true;
+}
+
+
+bool checkdate(Courses* C, int i, int day, int month) {
+    if (month > C[i].monthstart && month < C[i].monthend) {
+        return true;
+    }
+    else {
+        if (month == C[i].monthstart) {
+            if (day >= C[i].daystart)
+                return true;
+            else
+                return false;
+        }
+        if (month == C[i].monthend) {
+            if (day <= C[i].dayend)
+                return true;
+            else
+                return false;
+        }
+    }
+    return false;
+}
+// create new course
+void CreateCourse(Courses*& C, int& t) {
+    Courses temp;
+    cout << "Please, Enter new course's information:" << endl;
+    cin.ignore();
+    cout << "Course Id: ";
+    getline(cin, temp.ID);
+    cout << "Course Name: ";
+    getline(cin, temp.CName);
+    cout << "Teacher Name: ";
+    getline(cin, temp.TName);
+    cout << "Number of Credits: ";
+    cin >>temp.Credits;
+    cout << "The maximum number of students in the course: ";
+    cin >> temp.MaxMem;
+    cin.ignore();
+    cout << "Day1 of the week: ";
+    getline(cin, temp.day1);
+    cout << "Session1: ";
+    getline(cin, temp.session1);
+    cout << "Day2 of the week: ";
+    getline(cin, temp.day2);
+    cout << "Session2: ";
+    getline(cin, temp.session2);
+    cout << "Start day: ";
+    cin >> temp.daystart;
+    cout << "Start month: ";
+    cin >> temp.monthstart;
+    cout << "End day: ";
+    cin >> temp.dayend;
+    cout << "End month: ";
+    cin >> temp.monthend;
+    
+    Courses* Cnew = new Courses[t+1];
+    copy(C, C + t, Cnew);
+        Cnew[t].ID = temp.ID;
+        Cnew[t].CName = temp.CName;
+        Cnew[t].TName = temp.TName;
+        Cnew[t].Credits = temp.Credits;
+        Cnew[t].MaxMem = temp.MaxMem;
+        Cnew[t].day1 = temp.day1;
+        Cnew[t].session1 = temp.session1;
+        Cnew[t].day2 = temp.day2;
+        Cnew[t].session2 = temp.session2;
+        Cnew[t].daystart = temp.daystart;
+        Cnew[t].monthstart = temp.monthstart;
+        Cnew[t].dayend = temp.dayend;
+        Cnew[t].monthend = temp.monthend;
+        t++;
+        delete[]C;
+        C = Cnew;
+    
+}
+// Write new course
+void WriteCourse(Courses* C, int t) {
+    ofstream outfile;
+    outfile.open("course.csv");
+    if (!outfile.is_open()) {
+        return;
+    }
+    outfile << "Course id" << "," << "Course name" << "," << "Teacher name" << "," << "Number of credits" << "," << "The maximum number of students in the course" <<
+        "," << "Day1 of the week" << "," << "Session1" << "," << "Day2 of the week" << "," << "Session2" << "," << "Start date" << "," << "End date" << endl;
+    for (int i = 0; i < t; i++) {
+        outfile << C[i].ID << "," << C[i].CName << "," << C[i].TName << "," << C[i].Credits << "," << C[i].MaxMem << "," << C[i].day1 << "," << C[i].session1 << "," << C[i].day2 << "," <<
+            C[i].session2 << "," << C[i].daystart << "/" << C[i].monthstart << "," << C[i].dayend << "/" << C[i].monthend << endl;
+    }
+    outfile.close();
+}
+// Update courses
+void UpdateCourse(Courses*& C, int t) {
+    string CId;
+    cin.ignore();
+    cout << "Input the Course ID that need to update.";
+    getline(cin, CId);
+    int count = 0;
+    for (int i = 0; i < t; i++) {
+        if (C[i].ID == CId) {
+            count++;
+            Courses Temp;
+            system("cls");
+            Format("Update Course");
+            cout << "+ Please, Input new course's information:" << endl;
+            cout << "Course ID: ";
+            getline(cin, Temp.ID);
+            cout << "Course name: ";
+            getline(cin, Temp.CName);
+            cout << "Teacher name: ";
+            getline(cin, Temp.TName);
+            cout << "Number of Credits: ";
+            cin >> Temp.Credits;
+            cout << "The maximum number of students in the course:";
+            cin >> Temp.MaxMem;
+            cin.ignore();
+            cout << "Day1 of the week:";
+            getline(cin, Temp.day1);
+            cout << "Session1:";
+            getline(cin, Temp.session1);
+            cout << "Day2 of the week:";
+            getline(cin, Temp.day2);
+            cout << "Session2:";
+            getline(cin, Temp.session2);
+            cout << "Start day:";
+            cin >> Temp.daystart;
+            cout << "Start month:";
+            cin >> Temp.monthstart;
+            cout << "End day:";
+            cin >> Temp.dayend;
+            cout << "End month:";
+            cin >> Temp.monthend;
+            C[i].ID = Temp.ID;
+            C[i].CName = Temp.CName;
+            C[i].TName = Temp.TName;
+            C[i].Credits = Temp.Credits;
+            C[i].MaxMem = Temp.MaxMem;
+            C[i].day1 = Temp.day1;
+            C[i].session1 = Temp.session1;
+            C[i].day2 = Temp.day2;
+            C[i].session2 = Temp.session2;
+            C[i].daystart = Temp.daystart;
+            C[i].monthstart = Temp.monthstart;
+            C[i].dayend = Temp.dayend;
+            C[i].monthend = Temp.monthend;
+        }
+    }
+    if (count == 0)
+        cout << "Course do not exist" << endl;
+}
+void registerCourses(Courses*& C, int &t)
+{
+    int day = 0, month = 0, option = 0;
+    cout << "\n\n\tEnter Current time to register Course" << endl;
+    do {
+        cout << "Day: "; cin >> day;
+        cout << "Month: "; cin >> month;
+    } while (CheckTimeInput(day, month) == false);
+    bool check = true;
+    while (check)
+    {
+        system("cls");
+        Format("\tCourses Registration");
+        cout << "\n\t1. View list of courses";
+        cout << "\n\t2. Create a new course";
+        cout << "\n\t3. Update course's information";
+        cout << "\n\t4. Delete a course";
+        cout << "\n\t0. Back forward";
+        cout << "\n\t**************************************";
+        cout << "\n\t Choose the option you wanna do: "; cin >> option;
+        while ((option < 0) || (option > 4))
+        {
+            cout << "The number you enter isn't suitble\nPlease choose it again: "; cin >> option;
+        }
+        switch (option)
+        {
+        case 1:
+        {
+            cout << "+ View list of courses." << endl;
+            cout << "\t List of courses existing: \n";
+            cout << "Current Time: " << day << "/" << month << endl;
+            for (int i = 0; i < t; i++) {
+                if (checkdate(C, i, day, month)) {
+                    cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << ", Time start: " << C[i].daystart << "/" << C[i].monthstart << ", Time end: " <<
+                        C[i].dayend << "/" << C[i].monthend << endl;
+                }
+            }
+            system("pause");
+        }break;
+        case 2:
+        {
+            cout << "+ Create new course." << endl;
+            CreateCourse(C, t);
+            WriteCourse(C, t);
+            system("pause");
+        }break;
+        case 3:
+        {
+            cout << "+ Update course's information." << endl;
+            UpdateCourse(C, t);
+            WriteCourse(C, t);
+            system("pause");
+        }break;
+        case 4:
+        {
+
+        }break;
+        case 0:
+        {
+            check = false;
+        } break;
+        }
     }
 }
