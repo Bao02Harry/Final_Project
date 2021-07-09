@@ -13,7 +13,7 @@ int main() {
     bool check = true;
     string user, password;
     do {
-        Format("LOGIN");
+        Format();
         input(user, password);
         int pos = -1;
         if (CheckPassTech(T, m, pos, user, password) == true) {
@@ -21,60 +21,37 @@ int main() {
             Color(10);
             PrintElementTech(T, pos);
             // Cac nhiem vu tiep theo cua giao vien
+     
             system("pause");
+            system("cls");
             int check_temp = true;
             int select = 0;
             do {
-                system("cls");
-                Format("TEACHER");
-                cout << "\n\t1. Change password.\n";
-                cout << "\t2. Update your personal information." << endl;
-                cout << "\t3. Create a course registration session." << endl;
-                cout << "\t4. Add new 1st year students to 1st year classes." << endl;
-                cout << "\t0. Log out." << endl;
-                cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t*******************************************";
-                cout << "\n\t Choose the option you wanna do: ";
+                cout << "1. Update your personal information." << endl;
+                cout << "2. Create a course registration session." << endl;
+                cout << "3. Add new 1st year students to 1st year classes." << endl;
+                cout << "0. Back." << endl;
+                cout << "\t Your select: ";
                 cin >> select;
-                while ((select < -1) || (select > 4))
-                {
-                    cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
-                }
+                
                 switch (select) {
-                case 1:
-                {
+                case 1: {
                     system("cls");
-                    Format(" Change password");
-                    changepass(T, m, user);
-                    WriteAfterUdateTeach(T, m);
-                    system("pause");
-                }break;
-                case 2: {
-                    system("cls");
-                    cout << "\t2. Update your personal information." << endl;
+                    cout << "\t1. Update your personal information." << endl;
                     UpdateInforTeach(T, m, user);
                     WriteAfterUdateTeach(T, m);
-                    system("pause");
+                } break;
+                case 2: {
+                    system("cls");
+                    cout << "2. Create a course registration session." << endl;
+                    cout << "Courses existed: " << endl;
+                    PrintCourses(C, t);
+                    
                 } break;
                 case 3: {
-                    system("cls");
-                    cout << "\t3. Create a course registration session." << endl;
-                    cout << "\tCourses existed: " << t << endl;
-                    PrintCourses(C, t);
-                    registerCourses(C, t);
-                    system("pause");
-                } break;
-                case 4: {
-
-                } break;
-                case 5: {
 
                 } break;
                 case 0: {
-                    check_temp = false;
-                } break;
-                case -1: {
-                    check = false;
                     check_temp = false;
                 } break;
                 }
@@ -89,75 +66,33 @@ int main() {
 
 
             // 
+            
+            
 
 
-
-
-
-        }
-        else if (CheckPassStu(S, n, pos, user, password) == true) {
-            system("cls");
-            Color(10);
-            PrintElementStu(S, pos);
-            system("pause");
-            // Cac nhiem vu tiep theo cua sinh vien
-            system("pause");
-            int check_temp = true;
-            int select = 0;
-            do {
-                system("cls");
-                Format("STUDENT");
-                cout << "\n\t1. Update your personal information." << endl;
-                cout << "\t2. Register for the course." << endl;
-                cout << "\t3. View list of course, classes and student." << endl;
-                cout << "\t0. Log out." << endl;
-                cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t*******************************************";
-                cout << "\n\t Choose the option you wanna do: ";
-                cin >> select;
-                while ((select < -1) || (select > 3))
-                {
-                    cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
-                }
-                switch (select) {
-                case 1: {
-                    system("cls");
-                    cout << "\t1. Update your personal information." << endl;
-                    UpdateInforTeach(T, m, user);
-                    WriteAfterUdateTeach(T, m);
-                    system("pause");
-                } break;
-                case 2: {
-                    system("cls");
-                    cout << "2. Create a course registration session." << endl;
-                    cout << "Courses existed: " << endl;
-                    PrintCourses(C, t);
-                    system("pause");
-                } break;
-                case 3: {
-
-                } break;
-                case 0: {
-                    check_temp = false;
-                } break;
-                case -1: {
-                    check = false;
-                } break;
-                }
-            } while (check_temp);
 
         }
         else {
-            system("cls");
-            Color(4);
-            cout << "\n\tKhong co tai khoan trong he thong!";
-            Sleep(3000);
-            system("cls");
+            if (CheckPassStu(S, n, pos, user, password) == true) {
+                system("cls");
+                Color(10);
+                PrintElementStu(S, pos);
+                system("pause");
+                // Cac nhiem vu tiep theo cua sinh vien
+
+
+            }
+            else {
+                system("cls");
+                Color(4);
+                cout << "Khong co tai khoan trong he thong!";
+                Sleep(3000);
+                system("cls");
+            }
         }
 
-
-    } while (check);
-
+    } while (check );
+    
 
     delete[] S;
     delete[] T;

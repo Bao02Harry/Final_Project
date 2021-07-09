@@ -8,8 +8,6 @@
 #include <string.h>
 #include <cmath>
 #include <time.h>
-#include <malloc.h>
-
 using namespace std;
 struct Teacher {
     int No;// so thu tu
@@ -35,19 +33,15 @@ struct Student {
 };
 
 struct Courses {
-    int Credits;
-    int MaxMem;
-    int daystart;
-    int monthstart;
-    int dayend;
-    int monthend;
     string ID;
     string CName;
     string TName;
-    string day1;
+    int Credits;
+    int MaxMem;
+    int day1;
     string session1;
-    string day2;
-    string session2;
+    int day2;
+    string session2; 
 };
 
 void Color(int i);
@@ -77,20 +71,16 @@ bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass);
 // Cap nhat thong tin giao vien
 void UpdateInforTeach(Teacher*& T, int m, string ID);
 void WriteAfterUdateTeach(Teacher* T, int m);
-void changepass(Teacher*& T, int m, string ID);
 
-void Format(string s);
+void Format();
 void input(string& user, string& pass);
 // Doc file CSV courses 
 int countCourses();
 void ReadCourses(Courses*& C, int& t);
 void PrintCourses(Courses* C, int t);
-bool CheckTimeInput(int day, int month);
-bool checkdate(Courses* C, int i, int day, int month);
-void CreateCourse(Courses*& C, int& t);
-void registerCourses(Courses* &C, int& t);
-void WriteCourse(Courses* C, int t);
-void UpdateCourse(Courses*& C, int t);
+
+
+
 
 
 
