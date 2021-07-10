@@ -5,7 +5,7 @@ void Color(int i) {
 // Toa do 
 void gotoxy(int x, int y) {
     HANDLE color;
-    color = GetStdHandle;
+    color = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coor = { x,y };
     SetConsoleCursorPosition(color, coor);
 }
@@ -16,24 +16,24 @@ void Paint(int x, int y, string a, int color) {
     cout << a;
 }
 // Dem phan tu cua danh sach hoc sinh
-int countStu() {
+				
+int countStu() 
+{
     int count = 0;
-    errno_t err;
-    FILE* file;
-    err = fopen_s(&file, "Students.csv", "r");
-    if (file == NULL) {
+    ifstream file;
+    file.open("Students.csv");
+    if (!file.is_open()) {
         return 0;
     }
-    else {
-        while (!feof(file)) {
-            char c;
-            c = fgetc(file);
-            if (c == ',') count++;
-        }
+    string sline;
+    getline(file, sline);
+    while (file) {
+        getline(file, sline);
+        count++;
     }
-    return count / 8;
-}
-
+    file.close();
+    return count;
+}					   
 // chuyen chuoi sang so
 int change(string s) {
     int n = s.length();
@@ -71,7 +71,8 @@ void ReadStudent(Student*& S, int& n) {
     string year;
     int i = 0;
     getline(file, line);
-    while (file) {
+    while (file)
+	{
         getline(file, SNo, ',');
         getline(file, S[i].StuID, ',');
         getline(file, S[i].Fname, ',');
@@ -232,9 +233,9 @@ void Format(string s) {
 
 // Nhap du lieu vao
 void input(string& user, string& pass) {
-    Paint(15, 20, "ID of User: ", 10);
+    Paint(15, 10, "ID of User: ", 10);
     getline(cin, user);
-    Paint(15, 20, "Password: ", 10);
+    Paint(15, 13, "Password: ", 10);
     getline(cin, pass);
 }
 // cap nhat thong tin ca nhan giao vien
