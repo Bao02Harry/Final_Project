@@ -29,7 +29,7 @@ int main() {
                 cout << "\t4. Add new 1st year students to 1st year classes." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t*******************************************\n";
+                cout << "\n\t\t\t*******************************************\n";
                 PrintElementTech(T, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
@@ -93,7 +93,7 @@ int main() {
                 cout << "\t4. View list of courses, classes and students." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t*******************************************\n";
+                cout << "\n\t\t\t*******************************************\n";
                 PrintElementStu(S, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
@@ -105,6 +105,7 @@ int main() {
                 case 1:
                 {
                     system("cls");
+                    Format("Change password");
                     changepassstu(S, n, user);
                     WriteAfterUdateStu(S, n);
                     system("pause");
@@ -122,6 +123,7 @@ int main() {
                     cout << "Courses existed: " << endl;
                     PrintCourses(C, t);
                     registerStuC(SC, p, C, t, S, n, user);
+                    WriteAfterUdateStuC(SC, p);
                     system("pause");
                 } break;
                 case 4: {

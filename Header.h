@@ -123,7 +123,8 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
 void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int m, string ID);
 bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int position);
 int ExistCourse(Courses* C, int t, string ID);
-
+void deleteStuC(StuCourses*& SC, int& p, string ID, int day, int month);
+int checkCourseID(StuCourses* SC, int p, int day, int month, string ID, string temp);
 
 int countStuC();
 bool checkdateStuC(StuCourses* SC, int i, int day, int month);
