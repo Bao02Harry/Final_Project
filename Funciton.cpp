@@ -812,8 +812,7 @@ int checkCourseID(StuCourses* SC, int p, int day, int month, string ID, string t
     for (int i = 0; i < p; i++)
     {
         if (checkdateStuC(SC, i, day, month))
-            if (SC[i].StuID == ID)
-                if (SC[i].CouID == temp) return i;
+            if ((SC[i].StuID == ID) && (SC[i].CouID == temp)) return i;
     }
     return -1;
 }
@@ -824,7 +823,6 @@ void deleteStuC(StuCourses*& SC, int& p, string ID,int day,int month)
     int i = 0;
     do {
         cout << "Please enter exactly the course ID of the course you wanna cancel: ";
-        cin.ignore();
         getline(cin, temp);
         i = checkCourseID(SC, p, day, month, ID, temp);
     } while (i == -1);
@@ -862,7 +860,8 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
     int position = 0;
     string temp;
     do {
-        cout << "Please enter exactly the course ID of the course you wanna register: ";
+        cout << "\tThe course you register must be unduplicated schedule with other course\n";
+        cout << "\tPlease enter exactly the course ID of the course you wanna register: ";
         cin.ignore();
         getline(cin, temp);
         position = ExistCourse(C, t, temp);
