@@ -33,7 +33,7 @@ int main()
                 cout << "\t4. Add new 1st year students to 1st year classes." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t*******************************************\n";
+                cout << "\n\t\t\t*******************************************\n";
                 PrintElementTech(T, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
@@ -111,7 +111,7 @@ int main()
                 cout << "\t4. View list of courses, classes and students." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t*******************************************\n";
+                cout << "\n\t\t\t*******************************************\n";
                 PrintElementStu(S, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
@@ -119,6 +119,7 @@ int main()
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
+<<<<<<< HEAD
                 switch (select) 
 				{
 	                case 1:
@@ -163,6 +164,42 @@ int main()
 	                    return false;
 	                }
 					 break;
+=======
+                switch (select) {
+                case 1:
+                {
+                    system("cls");
+                    Format("Change password");
+                    changepassstu(S, n, user);
+                    WriteAfterUdateStu(S, n);
+                    system("pause");
+                }break;
+                case 2: {
+                    system("cls");
+                    Format("Update personal information");
+                    UpdateInforStu(S, n, user);
+                    WriteAfterUdateStu(S, n);
+                    system("pause");
+                } break;
+                case 3: {
+                    system("cls");
+                    Format("Register course");
+                    cout << "Courses existed: " << endl;
+                    PrintCourses(C, t);
+                    registerStuC(SC, p, C, t, S, n, user);
+                    WriteAfterUdateStuC(SC, p);
+                    system("pause");
+                } break;
+                case 4: {
+
+                } break;
+                case 0: {
+                    check_temp = false;
+                } break;
+                case -1: {
+                    return false;
+                } break;
+>>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
                 }
             } 
 			while (check_temp);
