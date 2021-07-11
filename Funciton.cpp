@@ -1,45 +1,42 @@
+
 #include "Header.h"
-void Color(int i) 
-{
+void Color(int i) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
 }
 // Toa do 
-void gotoxy(int x, int y) 
-{
+void gotoxy(int x, int y) {
     HANDLE color;
-    color = GetStdHandle(STD_OUTPUT_HANDLE);
+    color = GetStdHandle;
     COORD coor = { x,y };
     SetConsoleCursorPosition(color, coor);
 }
 //To mau 
-void Paint(int x, int y, string a, int color) 
-{
+void Paint(int x, int y, string a, int color) {
     gotoxy(x, y);
     Color(color);
     cout << a;
 }
 // Dem phan tu cua danh sach hoc sinh
-				
-int countStu() 
-{
+int countStu() {
     int count = 0;
-    ifstream file;
-    file.open("Students.csv");
-    if (!file.is_open()) {
+    errno_t err;
+    FILE* file;
+    err = fopen_s(&file, "Students.csv", "r");
+    if (file == NULL) {
         return 0;
     }
-    string sline;
-    getline(file, sline);
-    while (file) {
-        getline(file, sline);
-        count++;
+    else {
+        while (!feof(file)) {
+            char c;
+            c = fgetc(file);
+            if (c == ',') count++;
+        }
     }
-    file.close();
-    return count;
-}					   
+    return count / 8;
+}
+
 // chuyen chuoi sang so
-int change(string s)
-{
+int change(string s) {
     int n = s.length();
     int re = 0;
     for (int i = 0; i < n; i++) {
@@ -59,12 +56,10 @@ int change(string s)
     return re;
 }
 // doc file CSV cua sinh vien
-void ReadStudent(Student*& S, int& n) 
-{
+void ReadStudent(Student * &S, int& n) {
     S = new Student[countStu()];
     ifstream file("Students.csv");
-    if (!file.is_open()) 
-	{
+    if (!file.is_open()) {
         cout << "Cannot open file." << endl;
         return;
     }
@@ -77,8 +72,7 @@ void ReadStudent(Student*& S, int& n)
     string year;
     int i = 0;
     getline(file, line);
-    while (file)
-	{
+    while (file) {
         getline(file, SNo, ',');
         getline(file, S[i].StuID, ',');
         getline(file, S[i].Fname, ',');
@@ -103,19 +97,16 @@ void ReadStudent(Student*& S, int& n)
 }
 
 // Dem phan tu cua danh sach giao vien
-int countTech() 
-{
+int countTech() {
     int count = 0;
     ifstream infile;
     infile.open("Teachers.csv");
-    if (!infile.is_open()) 
-	{
+    if (!infile.is_open()) {
         return 0;
     }
     string line;
     getline(infile, line);
-    while (infile) 
-	{
+    while (infile) {
         getline(infile, line);
         count++;
     }
@@ -124,12 +115,10 @@ int countTech()
 }
 
 // doc file CSV cua giao vien
-void ReadTeacher(Teacher*& T, int& n) 
-{
+void ReadTeacher(Teacher * &T, int& n) {
     T = new Teacher[countTech()];
     ifstream file("Teachers.csv");
-    if (!file.is_open()) 
-	{
+    if (!file.is_open()) {
         cout << "Cannot open file." << endl;
         return;
     }
@@ -138,8 +127,7 @@ void ReadTeacher(Teacher*& T, int& n)
     string SSocialID;
     int i = 0;
     getline(file, line);
-    while (file) 
-	{
+    while (file) {
         getline(file, SNo, ',');
         getline(file, T[i].TeID, ',');
         getline(file, T[i].Fname, ',');
@@ -157,10 +145,8 @@ void ReadTeacher(Teacher*& T, int& n)
     file.close();
 }
 // Xuat toan bo file sinh vien
-void PrintStu(Student* S, int n) 
-{
-    for (int i = 0; i < n; i++) 
-	{
+void PrintStu(Student * S, int n) {
+    for (int i = 0; i < n; i++) {
         cout << "Sinh vien." << endl;
         cout << "So thu tu: " << S[i].No << endl;
         cout << "MSSV: " << S[i].StuID << ". Ho ten: " << S[i].Fname << " " << S[i].Lname << endl;
@@ -169,8 +155,7 @@ void PrintStu(Student* S, int n)
     }
 }
 // Xuat 1 phan tu sinh vien
-void PrintElementStu(Student* S, int i) 
-{
+void PrintElementStu(Student * S, int i) {
     cout << "So thu tu: " << S[i].No << endl;
     cout << "MSSV: " << S[i].StuID << ". Ho ten: " << S[i].Fname << " " << S[i].Lname << endl;
     cout << "Gioi tinh: " << S[i].Gen << ". Nam sinh: " << S[i].day << "/" << S[i].month << "/" << S[i].year << endl;
@@ -178,34 +163,29 @@ void PrintElementStu(Student* S, int i)
 }
 
 //---------------------------------------------Ma hoa mat khau khi dang nhap---------------------------------------
-void encode(string& s) 
-{
+void encode(string & s) {
     char ch;
     int dem = 0;
-    while ((ch = _getch()) != 13) 
-	{
-        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')) 
-		{
+    while ((ch = _getch()) != 13) {
+        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')) {
             cout << "*";
             s[dem++] = ch;
+
         }
-        if (ch == 8)
-        {
-            if (dem > 0) 
-			{
-                  cout << "\b \b";
-                  dem--;
-            }
-        }
+        else
+            if (ch == 8)
+                if (dem > 0) {
+                    cout << "\b \b";
+                    dem--;
+                }
+
     }
     s[dem] = 0;
     cout << s << endl;
 }
 // kiem tra tai khoan dang nhap sinh vien
-bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass) 
-{
-    for (int i = 0; i < n; i++) 
-	{
+bool CheckPassStu(Student * S, int n, int& pos, string user, string Pass) {
+    for (int i = 0; i < n; i++) {
         pos = i;
         if (S[i].StuID == user && S[i].Pass == Pass)
             return true;
@@ -214,10 +194,8 @@ bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass)
 }
 
 // kiem tra tai khoan dang nhap giao vien
-bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass) 
-{
-    for (int i = 0; i < m; i++)
-	{
+bool CheckPassTech(Teacher * T, int m, int& pos, string user, string Pass) {
+    for (int i = 0; i < m; i++) {
         pos = i;
         if (T[i].TeID == user && T[i].Pass == Pass)
             return true;
@@ -226,10 +204,8 @@ bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass)
 }
 
 // Xuat toan bo file giao vien
-void PrintTech(Teacher* T, int m) 
-{
-    for (int i = 0; i < m; i++) 
-	{
+void PrintTech(Teacher * T, int m) {
+    for (int i = 0; i < m; i++) {
         cout << "Giao vien." << endl;
         cout << "So thu tu: " << T[i].No << endl;
         cout << "MSGV: " << T[i].TeID << ". Ho ten: " << T[i].Fname << " " << T[i].Lname << endl;
@@ -237,38 +213,33 @@ void PrintTech(Teacher* T, int m)
     }
 }
 // Xuat 1 phan tu giao vien
-void PrintElementTech(Teacher* T, int i) 
-{
+void PrintElementTech(Teacher * T, int i) {
     cout << "Giao vien." << endl;
     cout << "So thu tu: " << T[i].No << endl;
     cout << "MSGV: " << T[i].TeID << ". Ho ten: " << T[i].Fname << " " << T[i].Lname << endl;
     cout << "Gioi tinh: " << T[i].Gen << ". CMND: " << T[i].SocialID << ". Khoa: " << T[i].Faculty << endl;
 }
 // Dinh dang
-void Format(string s) 
-{
+void Format(string s) {
     system("cls");
     Color(14);
-    cout << "\n\t\t\t **************************************" << endl;
-    cout << "\t\t\t      ";
+    cout << "\n\t\t\t ****************************" << endl;
+    cout << "\t\t\t\t      ";
     Color(10);
     cout << s << endl;
     Color(14);
-    cout << "\t\t\t **************************************" << endl;
+    cout << "\t\t\t ****************************" << endl;
 }
 
 // Nhap du lieu vao
-void input(string& user, string& pass) 
-{
-    Paint(15, 10, "ID of User: ", 10);
+void input(string & user, string & pass) {
+    Paint(15, 20, "ID of User: ", 10);
     getline(cin, user);
-    Paint(15, 13, "Password: ", 10);
+    Paint(15, 20, "Password: ", 10);
     getline(cin, pass);
 }
 // cap nhat thong tin ca nhan giao vien
-void UpdateInforTeach(Teacher*& T, int m, string ID) 
-{
-	
+void UpdateInforTeach(Teacher * &T, int m, string ID) {
     Teacher Temp;
     Format("Update personal information");
     cin.ignore();
@@ -285,10 +256,8 @@ void UpdateInforTeach(Teacher*& T, int m, string ID)
     getline(cin, Temp.Faculty);
     cout << "Your Social id: ";
     cin >> Temp.SocialID;
-    for (int i = 0; i < m; i++) 
-	{
-        if (T[i].TeID == ID)
-		{
+    for (int i = 0; i < m; i++) {
+        if (T[i].TeID == ID) {
             T[i].TeID = Temp.TeID;
             T[i].Fname = Temp.Fname;
             T[i].Lname = Temp.Lname;
@@ -299,8 +268,7 @@ void UpdateInforTeach(Teacher*& T, int m, string ID)
     }
 }
 
-void UpdateInforStu(Student*& S, int n, string ID)
-{
+void UpdateInforStu(Student * &S, int n, string ID) {
     Student Temp;
     Format("Update personal information");
     cin.ignore();
@@ -319,12 +287,9 @@ void UpdateInforStu(Student*& S, int n, string ID)
     cout << "Your Social id: ";
     cin >> Temp.SocialID;
     cout << "Your Class: ";
-    cin.ignore();
-    getline(cin, Temp.Class); 
-    for (int i = 0; i < n; i++) 
-	{
-        if (S[i].StuID == ID) 
-		{
+    getline(cin, Temp.Class);
+    for (int i = 0; i < n; i++) {
+        if (S[i].StuID == ID) {
             S[i].StuID = Temp.StuID;
             S[i].Fname = Temp.Fname;
             S[i].Lname = Temp.Lname;
@@ -338,109 +303,85 @@ void UpdateInforStu(Student*& S, int n, string ID)
     }
 }
 
-void changepassteacher(Teacher*& T, int m, string ID)
+void changepassteacher(Teacher * &T, int m, string ID)
 {
     Teacher Temp;
     cin.ignore();
-    Paint(15, 10, "Enter your old password: ", 10);
+    Paint(15, 20, "Enter your old password: ", 10);
     getline(cin, Temp.Pass);
     for (int i = 0; i < m; i++)
-    {
         if (T[i].TeID == ID)
         {
-<<<<<<< HEAD
-            if (Temp.Pass == T[i].Pass) 
-			{
-                Paint(15, 13, "Enter new password: ", 10);
-=======
             if (Temp.Pass == T[i].Pass) {
-                Paint(15, 10, "Enter new password: ", 10);
->>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
+                Paint(15, 20, "Enter new password: ", 10);
                 getline(cin, Temp.Pass);
                 T[i].Pass = Temp.Pass;
             }
-            else 
-			{
+            else {
                 cout << "Your password is wrong.\n";
             }
         }
-    }
 }
 
-void changepassstu(Student*& S, int n, string ID)
+void changepassstu(Student * &S, int n, string ID)
 {
     Student Temp;
     cin.ignore();
-    Paint(15, 10, "Enter your old password: ", 10);
+    Paint(15, 20, "Enter your old password: ", 10);
     getline(cin, Temp.Pass);
     for (int i = 0; i < n; i++)
         if (S[i].StuID == ID)
         {
-<<<<<<< HEAD
-            if (Temp.Pass == S[i].Pass) 
-			{
-=======
             if (Temp.Pass == S[i].Pass) {
->>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
-                Paint(15, 13, "Enter new password: ", 10);
+                Paint(15, 20, "Enter new password: ", 10);
                 getline(cin, Temp.Pass);
                 S[i].Pass = Temp.Pass;
             }
-            else 
-			{
+            else {
                 cout << "Your password is wrong.\n";
             }
         }
 }
 
 // ghi lai file sau khi cap nhap
-void WriteAfterUdateTeach(Teacher* T, int m) 
-{
+void WriteAfterUdateTeach(Teacher * T, int m) {
     ofstream outfile;
     outfile.open("Teacher.csv");
-    if (!outfile.is_open()) 
-	{
+    if (!outfile.is_open()) {
         cout << "Can not open file" << endl;
         return;
     }
     outfile << "No" << "," << "Teacher ID" << "," << "First Name" << "," << "Last Name" << "," << "Gender" << "," << "Social ID" << "," << "Faculty" << "," << "Password" << endl;
-    for (int i = 0; i < m; i++) 
-	{
+    for (int i = 0; i < m; i++) {
         outfile << T[i].No << "," << T[i].TeID << "," << T[i].Fname << "," << T[i].Lname << "," << T[i].Gen << "," << T[i].SocialID << "," << T[i].Faculty << "," << T[i].Pass << endl;
     }
     outfile.close();
 }
 
-void WriteAfterUdateStu(Student* S, int n) 
-{
+void WriteAfterUdateStu(Student * S, int n) {
     ofstream outfile;
     outfile.open("Students.csv");
-    if (!outfile.is_open()) 
-	{
+    if (!outfile.is_open()) {
         cout << "Can not open file" << endl;
         return;
     }
     outfile << "No" << "," << "Student ID" << "," << "First Name" << "," << "Last Name" << "," << "Gender" << "," << "Date of birth" << "," << "Social ID" << "," << "Class" << "," << "Password" << endl;
-    for (int i = 0; i < n; i++) 
-	{
+    for (int i = 0; i < n; i++) {
         outfile << S[i].No << "," << S[i].StuID << "," << S[i].Fname << "," << S[i].Lname << "," << S[i].Gen << "," << S[i].day << "/" << S[i].month << "/" << S[i].year << "," << S[i].SocialID << "," << S[i].Class << "," << S[i].Pass << endl;
     }
     outfile.close();
 }
 // Dem phan tu cua danh sach khoa hoc
-int countCourses() 
-{
+int countCourses() {
     int count = 0;
     ifstream infile;
     infile.open("course.csv");
-    if (!infile.is_open())
-	{
+    if (!infile.is_open()) {
         return 0;
     }
     string line;
     getline(infile, line);
-    while (infile)
-	{
+    while (infile) {
         getline(infile, line);
         count++;
     }
@@ -449,21 +390,18 @@ int countCourses()
 }
 
 // doc file courses
-void ReadCourses(Courses*& C, int& t) 
-{
+void ReadCourses(Courses * &C, int& t) {
     t = countCourses();
     C = new Courses[t];
     ifstream infile;
     infile.open("course.csv");
-    if (!infile.is_open()) 
-	{
+    if (!infile.is_open()) {
         return;
     }
     int i = 0;
     string line;
     getline(infile, line);
-    while (infile) 
-	{
+    while (infile) {
         getline(infile, C[i].ID, ',');
         getline(infile, C[i].CName, ',');
         getline(infile, C[i].TName, ',');
@@ -496,67 +434,52 @@ void ReadCourses(Courses*& C, int& t)
     infile.close();
 }
 
-void PrintCourses(Courses* C, int t) 
-{
-    for (int i = 0; i < t; i++) 
-	{
+void PrintCourses(Courses * C, int t) {
+    for (int i = 0; i < t; i++) {
         cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << endl;
     }
 }
 
-bool CheckTimeInput(int day, int month)
-{
-    switch (month) 
-	{
-	    case 1:
-	    case 3:
-	    case 5:
-	    case 7:
-	    case 8:
-	    case 10:
-	    case 12: 
-		{
-	      	if (day > 31 || day < 1)
-	        return false;
-    	} 
-		break;
-	    case 4:
-	    case 6:
-	    case 9:
-	    case 11: 
-		{
-	        if (day > 30 || day < 1)
-	            return false;
-	    }
-		break;
-	    case 2: 
-		{
-	        if (day > 39 || day < 1)
-	            return false;
-	    } 
-		break;
+bool CheckTimeInput(int day, int month) {
+    switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12: {
+        if (day > 31 || day < 1)
+            return false;
+    } break;
+    case 4:
+    case 6:
+    case 9:
+    case 11: {
+        if (day > 30 || day < 1)
+            return false;
+    } break;
+    case 2: {
+        if (day > 39 || day < 1)
+            return false;
+    } break;
     }
     return true;
 }
 
 
-bool checkdate(Courses* C, int i, int day, int month) 
-{
-    if (month > C[i].monthstart && month < C[i].monthend) 
-	{
+bool checkdate(Courses * C, int i, int day, int month) {
+    if (month > C[i].monthstart && month < C[i].monthend) {
         return true;
     }
-    else 
-	{
-        if (month == C[i].monthstart)
-		{
+    else {
+        if (month == C[i].monthstart) {
             if (day >= C[i].daystart)
                 return true;
             else
                 return false;
         }
-        if (month == C[i].monthend) 
-		{
+        if (month == C[i].monthend) {
             if (day <= C[i].dayend)
                 return true;
             else
@@ -566,23 +489,18 @@ bool checkdate(Courses* C, int i, int day, int month)
     return false;
 }
 
-bool checkdateStuC(StuCourses* SC, int i, int day, int month) 
-{
-    if (month > SC[i].monthstart && month < SC[i].monthend) 
-	{
+bool checkdateStuC(StuCourses * SC, int i, int day, int month) {
+    if (month > SC[i].monthstart && month < SC[i].monthend) {
         return true;
     }
-    else 
-	{
-        if (month == SC[i].monthstart) 
-		{
+    else {
+        if (month == SC[i].monthstart) {
             if (day >= SC[i].daystart)
                 return true;
             else
                 return false;
         }
-        if (month == SC[i].monthend)
-		{
+        if (month == SC[i].monthend) {
             if (day <= SC[i].dayend)
                 return true;
             else
@@ -592,8 +510,7 @@ bool checkdateStuC(StuCourses* SC, int i, int day, int month)
     return false;
 }
 // create new course
-void CreateCourse(Courses*& C, int& t) 
-{
+void CreateCourse(Courses * &C, int& t) {
     Courses temp;
     cout << "Please, Enter new course's information:" << endl;
     cin.ignore();
@@ -604,7 +521,7 @@ void CreateCourse(Courses*& C, int& t)
     cout << "Teacher Name: ";
     getline(cin, temp.TName);
     cout << "Number of Credits: ";
-    cin >>temp.Credits;
+    cin >> temp.Credits;
     cout << "The maximum number of students in the course: ";
     cin >> temp.MaxMem;
     cin.ignore();
@@ -624,57 +541,51 @@ void CreateCourse(Courses*& C, int& t)
     cin >> temp.dayend;
     cout << "End month: ";
     cin >> temp.monthend;
-    
-    Courses* Cnew = new Courses[t+1];
+
+    Courses* Cnew = new Courses[t + 1];
     copy(C, C + t, Cnew);
-        Cnew[t].ID = temp.ID;
-        Cnew[t].CName = temp.CName;
-        Cnew[t].TName = temp.TName;
-        Cnew[t].Credits = temp.Credits;
-        Cnew[t].MaxMem = temp.MaxMem;
-        Cnew[t].day1 = temp.day1;
-        Cnew[t].session1 = temp.session1;
-        Cnew[t].day2 = temp.day2;
-        Cnew[t].session2 = temp.session2;
-        Cnew[t].daystart = temp.daystart;
-        Cnew[t].monthstart = temp.monthstart;
-        Cnew[t].dayend = temp.dayend;
-        Cnew[t].monthend = temp.monthend;
-        t++;
-        delete[]C;
-        C = Cnew;
-    
+    Cnew[t].ID = temp.ID;
+    Cnew[t].CName = temp.CName;
+    Cnew[t].TName = temp.TName;
+    Cnew[t].Credits = temp.Credits;
+    Cnew[t].MaxMem = temp.MaxMem;
+    Cnew[t].day1 = temp.day1;
+    Cnew[t].session1 = temp.session1;
+    Cnew[t].day2 = temp.day2;
+    Cnew[t].session2 = temp.session2;
+    Cnew[t].daystart = temp.daystart;
+    Cnew[t].monthstart = temp.monthstart;
+    Cnew[t].dayend = temp.dayend;
+    Cnew[t].monthend = temp.monthend;
+    t++;
+    delete[]C;
+    C = Cnew;
+
 }
 // Write new course
-void WriteCourse(Courses* C, int t) 
-{
+void WriteCourse(Courses * C, int t) {
     ofstream outfile;
     outfile.open("course.csv");
-    if (!outfile.is_open()) 
-	{
+    if (!outfile.is_open()) {
         return;
     }
     outfile << "Course id" << "," << "Course name" << "," << "Teacher name" << "," << "Number of credits" << "," << "The maximum number of students in the course" <<
         "," << "Day1 of the week" << "," << "Session1" << "," << "Day2 of the week" << "," << "Session2" << "," << "Start date" << "," << "End date" << endl;
-    for (int i = 0; i < t; i++) 
-	{
+    for (int i = 0; i < t; i++) {
         outfile << C[i].ID << "," << C[i].CName << "," << C[i].TName << "," << C[i].Credits << "," << C[i].MaxMem << "," << C[i].day1 << "," << C[i].session1 << "," << C[i].day2 << "," <<
             C[i].session2 << "," << C[i].daystart << "/" << C[i].monthstart << "," << C[i].dayend << "/" << C[i].monthend << endl;
     }
     outfile.close();
 }
 // Update courses
-void UpdateCourse(Courses*& C, int t) 
-{
+void UpdateCourse(Courses * &C, int t) {
     string CId;
     cin.ignore();
     cout << "Input the Course ID that need to update.";
     getline(cin, CId);
     int count = 0;
-    for (int i = 0; i < t; i++) 
-	{
-        if (C[i].ID == CId) 
-		{
+    for (int i = 0; i < t; i++) {
+        if (C[i].ID == CId) {
             count++;
             Courses Temp;
             system("cls");
@@ -726,16 +637,14 @@ void UpdateCourse(Courses*& C, int t)
         cout << "Course do not exist" << endl;
 }
 
-void registerCourses(Courses*& C, int &t)
+void registerCourses(Courses * &C, int& t)
 {
     int day = 0, month = 0, option = 0;
     cout << "\n\n\tEnter Current time to register Course" << endl;
-    do
-	{
+    do {
         cout << "Day: "; cin >> day;
         cout << "Month: "; cin >> month;
-    } 
-	while (CheckTimeInput(day, month) == false);
+    } while (CheckTimeInput(day, month) == false);
     while (true)
     {
         system("cls");
@@ -745,7 +654,7 @@ void registerCourses(Courses*& C, int &t)
         cout << "\n\t3. Update course's information";
         cout << "\n\t4. Delete a course";
         cout << "\n\t0. Back forward";
-        cout << "\n\t\t\t**************************************";
+        cout << "\n\t**************************************";
         cout << "\n\t Choose the option you wanna do: "; cin >> option;
         while ((option < 0) || (option > 4))
         {
@@ -753,69 +662,60 @@ void registerCourses(Courses*& C, int &t)
         }
         switch (option)
         {
-	        case 1:
-	        {
-	            system("cls");
-	            Format("List courses");
-	            cout << "\t List of courses existing: \n";
-	            cout << "Current Time: " << day << "/" << month << endl;
-	            for (int i = 0; i < t; i++) 
-				{
-	                if (checkdate(C, i, day, month)) 
-					{
-	                    cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << ", Time start: " << C[i].daystart << "/" << C[i].monthstart << ", Time end: " <<
-	                        C[i].dayend << "/" << C[i].monthend << endl;
-	                }
-	            }
-	            system("pause");
-	        }
-			break;
-	        case 2:
-	        {
-	            system("cls");
-	            Format("List courses");
-	            CreateCourse(C, t);
-	            WriteCourse(C, t);
-	            system("pause");
-	        }
-			break;
-	        case 3:
-	        {
-	            system("cls");
-	            Format("Update courses");
-	            UpdateCourse(C, t);
-	            WriteCourse(C, t);
-	            system("pause");
-	        }
-			break;
-	        case 4:
-	        {
-	            system("cls");
-	            Format("Delete course");
-	
-	            system("pause");
-	        }
-			break;
-	        case 0:
-	        {
-	            return;
-	        } 
-			break;
-	    }
-	}
+        case 1:
+        {
+            system("cls");
+            Format("List courses");
+            cout << "\t List of courses existing: \n";
+            cout << "Current Time: " << day << "/" << month << endl;
+            for (int i = 0; i < t; i++) {
+                if (checkdate(C, i, day, month)) {
+                    cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << ", Time start: " << C[i].daystart << "/" << C[i].monthstart << ", Time end: " <<
+                        C[i].dayend << "/" << C[i].monthend << endl;
+                }
+            }
+            system("pause");
+        }break;
+        case 2:
+        {
+            system("cls");
+            Format("List courses");
+            CreateCourse(C, t);
+            WriteCourse(C, t);
+            system("pause");
+        }break;
+        case 3:
+        {
+            system("cls");
+            Format("Update courses");
+            UpdateCourse(C, t);
+            WriteCourse(C, t);
+            system("pause");
+        }break;
+        case 4:
+        {
+            system("cls");
+            Format("Delete course");
+
+            system("pause");
+        }break;
+        case 0:
+        {
+            return;
+        } break;
+        }
+    }
 }
 //////////////////////////////////////////Student register course
 
-void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int n, string ID)
+void registerStuC(StuCourses * &SC, int& p, Courses * &C, int t, Student * &S, int n, string ID)
 {
     int day = 0, month = 0, option = 0;
     cout << "\n\n\tEnter Current time to register Course" << endl;
-    do 
-	{
+    do {
         cout << "Day: "; cin >> day;
         cout << "Month: "; cin >> month;
-    } 
-	while (CheckTimeInput(day, month) == false);
+    } while (CheckTimeInput(day, month) == false);
     while (true)
     {
         system("cls");
@@ -826,77 +726,13 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
         cout << "\n\t4. Delete a course you have registered";
         cout << "\n\t0. Back forward";
         cout << "\n\t**************************************";
-        cout << "\n\t\t\t Choose the option you wanna do: "; cin >> option;
+        cout << "\n\t Choose the option you wanna do: "; cin >> option;
         while ((option < 0) || (option > 4))
         {
             cout << "The number you enter isn't suitble\nPlease choose it again: "; cin >> option;
         }
         switch (option)
         {
-<<<<<<< HEAD
-	        case 1:
-	        {
-	            system("cls");
-	            Format("List courses");
-	            cout << "\t List of courses existing: \n";
-	            cout << "Current Time: " << day << "/" << month << endl;
-	            for (int i = 0; i < t; i++)
-				{
-	                if (checkdate(C, i, day, month)) 
-					{
-	                    cout << "Course ID: " << C[i].ID << ", Course Name: " << C[i].CName << ", Time start: " << C[i].daystart << "/" << C[i].monthstart << ", Time end: " <<
-	                        C[i].dayend << "/" << C[i].monthend << endl;
-	                }
-	            }
-	            system("pause");
-	        }
-			break;
-	        case 2:
-	        {
-	            system("cls");
-	            Format("Register course");
-	            int count = 0;
-	            for (int i = 0; i < p; i++)
-	            {
-	                if (checkdateStuC(SC, i, day, month))
-	                {
-	                    if (SC[i].StuID == ID) count++;
-	                    if (count == 5) continue;
-	                }
-	            }
-	            if (count >= 5)  cout << "You can't register course because you have registered 5 courses\n";
-	            else addStuC(SC, p, C, t,S,n,ID);
-	            WriteAfterUdateStuC(SC, p);
-	            system("pause");
-	        }
-			break;
-	        case 3:
-	        {
-	            system("cls");
-	            Format("List courses");
-	            for (int i = 0; i < p; i++)
-	            {
-	                if (checkdateStuC(SC, i, day, month))
-	                    if (SC[i].StuID == ID) PrintElementStuC(SC, i);
-	            }
-	            system("pause");
-	        }
-			break;
-	        case 4:
-	        {
-	            system("cls");
-	            Format("Delete course");
-	            
-	            system("pause");
-	        }
-			break;
-	        case 0:
-	        {
-	            return;
-	        } 
-			break;
-	    }
-=======
         case 1:
         {
             system("cls");
@@ -925,41 +761,26 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
                 }
             }
             if (count >= 5)  cout << "You can't register course because you have registered 5 courses\n";
-            else addStuC(SC, p, C, t,S,n,ID);
+            else addStuC(SC, p, C, t, S, n, ID);
+            WriteAfterUdateStuC(SC, p);
             system("pause");
         }break;
         case 3:
         {
             system("cls");
             Format("List courses");
-            int count = 0;
             for (int i = 0; i < p; i++)
             {
                 if (checkdateStuC(SC, i, day, month))
-                    if (SC[i].StuID == ID) {
-                        PrintElementStuC(SC, i);
-                        count++;
-                    }
+                    if (SC[i].StuID == ID) PrintElementStuC(SC, i);
             }
-            if (count == 0) cout << "\n\tYou haven't registered any course\n";
             system("pause");
         }break;
         case 4:
         {
             system("cls");
             Format("Delete course");
-            int count = 0, position = 0;
-            string temp;
-            for (int i = 0; i < p; i++)
-            {
-                if (checkdateStuC(SC, i, day, month))
-                    if (SC[i].StuID == ID) {
-                        PrintElementStuC(SC, i);
-                        count++;
-                    }
-            }
-            if (count == 0) cout << "\n\tYou haven't registered any course\n";
-            else      deleteStuC(SC, p, ID,day,month);
+
             system("pause");
         }break;
         case 0:
@@ -967,82 +788,23 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
             return;
         } break;
         }
->>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
     }
 }
 
-int checkCourseID(StuCourses* SC, int p, int day, int month, string ID, string temp)
-{
-    for (int i = 0; i < p; i++)
-    {
-        if (checkdateStuC(SC, i, day, month))
-            if ((SC[i].StuID == ID) && (SC[i].CouID == temp)) return i;
-    }
-    return -1;
-}
-
-void deleteStuC(StuCourses*& SC, int& p, string ID,int day,int month)
-{
-    string temp;
-    int i = 0;
-    do {
-        cout << "Please enter exactly the course ID of the course you wanna cancel: ";
-        getline(cin, temp);
-        i = checkCourseID(SC, p, day, month, ID, temp);
-    } while (i == -1);
-    if (i == (p - 1))
-    {
-        p--;
-        return;
-    }
-    for (i; i < (p-1); i++)
-    {
-        SC[i].No = SC[i + 1].No;
-        SC[i].StuID = SC[i + 1].StuID;
-        SC[i].Fname = SC[i + 1].Fname;
-        SC[i].Lname = SC[i + 1].Lname;
-        SC[i].Gen = SC[i + 1].Gen;
-        SC[i].Class = SC[i + 1].Class;
-        SC[i].CouID = SC[i + 1].CouID;
-        SC[i].Cname = SC[i + 1].Cname;
-        SC[i].credits = SC[i + 1].credits;
-        SC[i].Tname = SC[i + 1].Tname;
-        SC[i].day1 = SC[i + 1].day1;
-        SC[i].session1 = SC[i + 1].session1;
-        SC[i].day2 = SC[i + 1].day2;
-        SC[i].session2 = SC[i + 1].session2;
-        SC[i].daystart = SC[i + 1].daystart;
-        SC[i].monthstart = SC[i + 1].monthstart;
-        SC[i].dayend = SC[i + 1].dayend;
-        SC[i].monthend = SC[i + 1].monthend;
-    }
-    p--;
-}
-
-void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, string ID)
+void addStuC(StuCourses * &SC, int& p, Courses * C, int t, Student * S, int n, string ID)
 {
     int position = 0;
     string temp;
-<<<<<<< HEAD
-    do 
-	{
-        cout << "Please enter exactly the course ID of the course you wanna register: ";
-=======
     do {
-        cout << "\tThe course you register must be unduplicated schedule with other course\n";
-        cout << "\tPlease enter exactly the course ID of the course you wanna register: ";
-        cin.ignore();
->>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
+        cout << "Please enter exactly the course ID of the course you wanna register: ";
         getline(cin, temp);
         position = ExistCourse(C, t, temp);
-    } 
-	while ((position < 0) || (unduplicated(SC,p,C,t,ID,position)==false));
+    } while ((position < 0) || (unduplicated(SC, p, C, t, ID, position) == false));
     StuCourses* SCnew = new StuCourses[p + 1];
     copy(SC, SC + p, SCnew);
     SCnew[p].No = p;
     SCnew[p].StuID = ID;
-    for (int i=0;i<n;i++)
-    {
+    for (int i = 0; i < n; i++)
         if (S[i].StuID == ID)
         {
             SCnew[p].Fname = S[i].Fname;
@@ -1051,7 +813,6 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
             SCnew[p].Class = S[i].Class;
             continue;
         }
-    }
     SCnew[p].CouID = C[position].ID;
     SCnew[p].Cname = C[position].CName;
     SCnew[p].credits = C[position].Credits;
@@ -1069,9 +830,9 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
     SC = SCnew;
 }
 
-bool unduplicated(StuCourses* SC, int p,Courses*C,int t, string ID,int position)
+bool unduplicated(StuCourses * SC, int p, Courses * C, int t, string ID, int position)
 {
-    for (int i=0;i<p;i++)
+    for (int i = 0; i < p; i++)
         if (SC[i].StuID == ID)
         {
             if (SC[i].day1 == C[position].day1)
@@ -1082,26 +843,23 @@ bool unduplicated(StuCourses* SC, int p,Courses*C,int t, string ID,int position)
     return true;
 }
 
-int ExistCourse(Courses* C, int t, string ID)
+int ExistCourse(Courses * C, int t, string ID)
 {
     for (int i = 0; i < t; i++)
         if (C[i].ID == ID) return i;
     return -1;
 }
 //Ghi file danh sach sinh vien dang ky hoc phan
-int countStuC() 
-{
+int countStuC() {
     int count = 0;
     ifstream infile;
     infile.open("Stucourses.csv");
-    if (!infile.is_open()) 
-	{
+    if (!infile.is_open()) {
         return 0;
     }
     string line;
     getline(infile, line);
-    while (infile) 
-	{
+    while (infile) {
         getline(infile, line);
         count++;
     }
@@ -1109,21 +867,18 @@ int countStuC()
     return count;
 }
 
-void ReadStuC(StuCourses*& SC, int& p)
-{
+void ReadStuC(StuCourses * &SC, int& p) {
     p = countCourses();
     SC = new StuCourses[p];
     ifstream infile;
     infile.open("Stucourses.csv");
-    if (!infile.is_open()) 
-	{
+    if (!infile.is_open()) {
         return;
     }
     int i = 0;
     string line, No, credits, ds, ms, de, me;
     getline(infile, line);
-    while (infile) 
-	{
+    while (infile) {
         getline(infile, No, ',');
         getline(infile, SC[i].StuID, ',');
         getline(infile, SC[i].Fname, ',');
@@ -1148,42 +903,32 @@ void ReadStuC(StuCourses*& SC, int& p)
         SC[i].monthstart = change(ms);
         SC[i].dayend = change(de);
         SC[i].monthend = change(me);
+
         i++;
     }
     p = i - 1;
     infile.close();
 }
 
-void PrintStuC(StuCourses* SC, int p) 
-{
-    for (int i = 0; i < p; i++) 
-	{
+void PrintStuC(StuCourses * SC, int p) {
+    for (int i = 0; i < p; i++) {
         cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
     }
 }
 
-<<<<<<< HEAD
-void PrintElementStuC(StuCourses* SC, int i) 
-{
+void PrintElementStuC(StuCourses * SC, int i) {
     cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
-=======
-void PrintElementStuC(StuCourses* SC, int i) {
-    cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
->>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
 }
 
-void WriteAfterUdateStuC(StuCourses* SC, int p) 
-{
+void WriteAfterUdateStuC(StuCourses * SC, int p) {
     ofstream outfile;
     outfile.open("Stucourses.csv");
-    if (!outfile.is_open()) 
-	{
+    if (!outfile.is_open()) {
         cout << "Can not open file" << endl;
         return;
     }
     outfile << "No" << "," << "Student ID" << "," << "First Name" << "," << "Last Name" << "," << "Gender" << "," << "Class" << "," << "Course ID" << "," << "Course Name" << "," << "Credits" << "," << "Teacher Name" << "," << "day1" << "," << "session1" << "," << "day2" << "," << "session2" << "," << "day start" << "," << "month start" << "," << "day end" << "," << "month end" << endl;
-    for (int i = 0; i < p; i++) 
-	{
+    for (int i = 0; i < p; i++) {
         outfile << SC[i].No << "," << SC[i].StuID << "," << SC[i].Fname << "," << SC[i].Lname << "," << SC[i].Gen << "," << SC[i].Class << "," << SC[i].CouID << "," << SC[i].Cname << "," << SC[i].credits << "," << SC[i].Tname << "," << SC[i].day1 << "," << SC[i].session1 << "," << SC[i].day2 << "," << SC[i].session2 << "," << SC[i].daystart << "/" << SC[i].monthstart << "," << SC[i].dayend << "/" << SC[i].monthend << endl;
     }
     outfile.close();

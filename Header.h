@@ -78,60 +78,60 @@ int change(string s);
 
 
 int countStu();
-void ReadStudent(Student*& S, int& n);
-void PrintStu(Student* S, int n);
-void PrintElementStu(Student* S, int i);
+void ReadStudent(Student * &S, int& n);
+void PrintStu(Student * S, int n);
+void PrintElementStu(Student * S, int i);
 
 
 int countTech();
-void ReadTeacher(Teacher*& T, int& n);
-void PrintTech(Teacher* T, int m);
-void PrintElementTech(Teacher* T, int i);
+void ReadTeacher(Teacher * &T, int& n);
+void PrintTech(Teacher * T, int m);
+void PrintElementTech(Teacher * T, int i);
 
 
-void encode(string& s);
+void encode(string & s);
 
 
-bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass);
-bool CheckPassStu(Student* S, int n, int& pos, string user, string Pass);
+bool CheckPassTech(Teacher * T, int m, int& pos, string user, string Pass);
+bool CheckPassStu(Student * S, int n, int& pos, string user, string Pass);
 
 // Cap nhat thong tin giao vien
-void UpdateInforTeach(Teacher*& T, int m, string ID);
-void WriteAfterUdateTeach(Teacher* T, int m);
-void changepassteacher(Teacher*& T, int m, string ID);
+void UpdateInforTeach(Teacher * &T, int m, string ID);
+void WriteAfterUdateTeach(Teacher * T, int m);
+void changepassteacher(Teacher * &T, int m, string ID);
 
 void Format(string s);
-void input(string& user, string& pass);
+void input(string & user, string & pass);
 // Doc file CSV courses 
 int countCourses();
-void ReadCourses(Courses*& C, int& t);
-void PrintCourses(Courses* C, int t);
+void ReadCourses(Courses * &C, int& t);
+void PrintCourses(Courses * C, int t);
 bool CheckTimeInput(int day, int month);
-bool checkdate(Courses* C, int i, int day, int month);
-void CreateCourse(Courses*& C, int& t);
-void registerCourses(Courses* &C, int& t);
-void WriteCourse(Courses* C, int t);
-void UpdateCourse(Courses*& C, int t);
+bool checkdate(Courses * C, int i, int day, int month);
+void CreateCourse(Courses * &C, int& t);
+void registerCourses(Courses * &C, int& t);
+void WriteCourse(Courses * C, int t);
+void UpdateCourse(Courses * &C, int t);
 
 //Cap nhap thong tin sinh vien
-void UpdateInforStu(Student*& S, int n, string ID);
-void changepassstu(Student*& S, int n, string ID);
-void WriteAfterUdateStu(Student* S, int n);
+void UpdateInforStu(Student * &S, int n, string ID);
+void changepassstu(Student * &S, int n, string ID);
+void WriteAfterUdateStu(Student * S, int n);
 
 //Cap nhat khoa hoc sinh vien
-void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int m, string ID);
-void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int m, string ID);
-bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int position);
-int ExistCourse(Courses* C, int t, string ID);
-void deleteStuC(StuCourses*& SC, int& p, string ID, int day, int month);
-int checkCourseID(StuCourses* SC, int p, int day, int month, string ID, string temp);
+void registerStuC(StuCourses * &SC, int& p, Courses * &C, int t, Student * &S, int m, string ID);
+void addStuC(StuCourses * &SC, int& p, Courses * C, int t, Student * S, int m, string ID);
+bool unduplicated(StuCourses * SC, int p, Courses * C, int t, string ID, int position);
+int ExistCourse(Courses * C, int t, string ID);
+
 
 int countStuC();
-bool checkdateStuC(StuCourses* SC, int i, int day, int month);
-void ReadStuC(StuCourses*& SC, int& p);
-void PrintStuC(StuCourses* SC, int p);
-void PrintElementStuC(StuCourses* SC, int i);
-void WriteAfterUdateStuC(StuCourses* SC, int p);
+bool checkdateStuC(StuCourses * SC, int i, int day, int month);
+void ReadStuC(StuCourses * &SC, int& p);
+void PrintStuC(StuCourses * SC, int p);
+void PrintElementStuC(StuCourses * SC, int i);
+void WriteAfterUdateStuC(StuCourses * SC, int p);
 
 
 #endif
+

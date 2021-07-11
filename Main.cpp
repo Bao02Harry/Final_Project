@@ -1,7 +1,6 @@
 #include "Header.h"
 
-int main() 
-{
+int main() {
     Student* S;
     Teacher* T;
     Courses* C;
@@ -12,19 +11,16 @@ int main()
     ReadCourses(C, t);
     ReadStuC(SC, p);
     string user, password;
-    do 
-	{
+    do {
         Format("LOGIN");
         input(user, password);
         int pos = -1;
-        if (CheckPassTech(T, m, pos, user, password) == true) 
-		{
+        if (CheckPassTech(T, m, pos, user, password) == true) {
             system("cls");
             Color(10);
             int check_temp = true;
             int select = 0;
-            do 
-			{
+            do {
                 system("cls");
                 Format("TEACHER");
                 cout << "\n\t1. Change password.\n";
@@ -33,7 +29,7 @@ int main()
                 cout << "\t4. Add new 1st year students to 1st year classes." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t\t*******************************************\n";
+                cout << "\n\t\t*******************************************\n";
                 PrintElementTech(T, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
@@ -41,68 +37,54 @@ int main()
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
-                switch (select) 
-				{
-	                case 1:
-	                {
-	                    system("cls");
-	                    Format(" Change password");
-	                    changepassteacher(T, m, user);
-	                    WriteAfterUdateTeach(T, m);
-	                    system("pause");
-	                }
-					break;
-	                case 2: 
-					{
-	                    system("cls");
-	                    Format("Update personal information");
-	                    UpdateInforTeach(T, m, user);
-	                    WriteAfterUdateTeach(T, m);
-	                    system("pause");
-	                } 
-					break;
-	                case 3:
-					{
-	                    system("cls");
-	                    Format("Register course");
-	                    cout << "\tCourses existed: " << t << endl;
-	                    PrintCourses(C, t);
-	                    registerCourses(C, t);
-	                    system("pause");
-	                } 
-					break;
-	                case 4: 
-					{
-	
-	                } 
-					break;
-	                case 5: 
-					{
-	
-	                } 
-					break;
-	                case 0: 
-					{
-	                    check_temp = false;
-	                } 
-					break;
-	                case -1: 
-					{
-	                    return false;
-	                } 
-					break;
+                switch (select) {
+                case 1:
+                {
+                    system("cls");
+                    Format(" Change password");
+                    changepassteacher(T, m, user);
+                    WriteAfterUdateTeach(T, m);
+                    system("pause");
+                }break;
+                case 2: {
+                    system("cls");
+                    Format("Update personal information");
+                    UpdateInforTeach(T, m, user);
+                    WriteAfterUdateTeach(T, m);
+                    system("pause");
+                } break;
+                case 3: {
+                    system("cls");
+                    Format("Register course");
+                    cout << "\tCourses existed: " << t << endl;
+                    PrintCourses(C, t);
+                    registerCourses(C, t);
+                    system("pause");
+                } break;
+                case 4: {
+
+                } break;
+                case 5: {
+
+                } break;
+                case 0: {
+                    check_temp = false;
+                } break;
+                case -1: {
+                    return false;
+                } break;
                 }
-            } 
-			while (check_temp);
+            } while (check_temp);
+
+
+
         }
-        else if (CheckPassStu(S, n, pos, user, password) == true) 
-		{
+        else if (CheckPassStu(S, n, pos, user, password) == true) {
             system("cls");
             Color(10);
             int check_temp = true;
             int select = 0;
-            do 
-			{
+            do {
                 system("cls");
                 Format("STUDENT");
                 cout << "\n\t1. Change password";
@@ -111,7 +93,7 @@ int main()
                 cout << "\t4. View list of courses, classes and students." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
-                cout << "\n\t\t\t*******************************************\n";
+                cout << "\n\t\t*******************************************\n";
                 PrintElementStu(S, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
@@ -119,57 +101,10 @@ int main()
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
-<<<<<<< HEAD
-                switch (select) 
-				{
-	                case 1:
-	                {
-	                    system("cls");
-	                    changepassstu(S, n, user);
-	                    WriteAfterUdateStu(S, n);
-	                    system("pause");
-	                }
-					break;
-	                case 2: 
-					{
-	                    system("cls");
-	                    Format("Update personal information");
-	                    UpdateInforStu(S, n, user);
-	                    WriteAfterUdateStu(S, n);
-	                    system("pause");
-	                } 
-					break;
-	                case 3: 
-					{
-	                    system("cls");
-	                    Format("Register course");
-	                    cout << "Courses existed: " << endl;
-	                    PrintCourses(C, t);
-	                    registerStuC(SC, p, C, t, S, n, user);
-	                    system("pause");
-	                } 
-					break;
-	                case 4: 
-					{
-	
-	                } 
-					break;
-	                case 0: 
-					{
-	                    check_temp = false;
-	                } 
-					break;
-	                case -1: 
-					{
-	                    return false;
-	                }
-					 break;
-=======
                 switch (select) {
                 case 1:
                 {
                     system("cls");
-                    Format("Change password");
                     changepassstu(S, n, user);
                     WriteAfterUdateStu(S, n);
                     system("pause");
@@ -187,7 +122,6 @@ int main()
                     cout << "Courses existed: " << endl;
                     PrintCourses(C, t);
                     registerStuC(SC, p, C, t, S, n, user);
-                    WriteAfterUdateStuC(SC, p);
                     system("pause");
                 } break;
                 case 4: {
@@ -199,21 +133,22 @@ int main()
                 case -1: {
                     return false;
                 } break;
->>>>>>> a6c18bb754556ecfb2b24fed50f6ed71faa214c4
                 }
-            } 
-			while (check_temp);
+            } while (check_temp);
+
         }
-        else 
-		{
+        else {
             system("cls");
             Color(4);
             cout << "\n\tKhong co tai khoan trong he thong!";
             Sleep(3000);
             system("cls");
         }
-    } 
-	while (true);
+
+
+    } while (true);
+
+
     delete[] S;
     delete[] T;
     delete[] C;
