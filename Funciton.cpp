@@ -966,7 +966,7 @@ void CheckDelStuC(StuCourses*& SC, int& p, string ID, int day, int month)
             if ((SC[i].CouID == temp) && (SC[i].StuID == ID))
             {
                 char check;
-                do {
+
                     cout << "Are you sure you want to permanently delete this Course(y / n)?: ";
                     cin >> check;
                     if ((int)check == (int)'y')
@@ -975,7 +975,6 @@ void CheckDelStuC(StuCourses*& SC, int& p, string ID, int day, int month)
                         return;
                     }
                     else if ((int)check == (int)'n') return;
-                } while ((check != 'y') && (check != 'n'));
             }
     }
         cout << "The course ID you enter is wrong\n";
