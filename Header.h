@@ -9,6 +9,7 @@
 #include <cmath>
 #include <time.h>
 #include <malloc.h>
+#include <iomanip>
 
 using namespace std;
 struct Teacher {
@@ -69,6 +70,10 @@ struct StuCourses {
     int monthstart;
     int dayend;
     int monthend;
+    float other;
+    float midterm;
+    float final;
+    float total;
 };
 
 void Color(int i);
@@ -128,7 +133,9 @@ void registerStuC(StuCourses * &SC, int& p, Courses * &C, int t, Student * &S, i
 void addStuC(StuCourses * &SC, int& p, Courses * C, int t, Student * S, int m, string ID);
 bool unduplicated(StuCourses * SC, int p, Courses * C, int t, string ID, int position);
 int ExistCourse(Courses * C, int t, string ID);
-
+void DelStuC(StuCourses*& SC, int& p, int i);
+void CheckDelStuC(StuCourses*& SC, int& p, string ID, int day, int month);
+void ViewScore(StuCourses* SC, int p, int i);
 
 int countStuC();
 bool checkdateStuC(StuCourses * SC, int i, int day, int month);

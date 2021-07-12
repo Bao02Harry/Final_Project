@@ -104,6 +104,7 @@ int main() {
                 cout << "\n\t2. Update your personal information." << endl;
                 cout << "\t3. Register for the course." << endl;
                 cout << "\t4. View list of courses, classes and students." << endl;
+                cout << "\t5. View your scoreboard." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
                 cout << "\n\t\t*******************************************\n";
@@ -138,17 +139,63 @@ int main() {
                     system("pause");
                 } break;
                 case 4: {
-
+                    system("cls");
+                    Format("List courses");
+                    int count = 0, day = 0, month = 0;
+                    cout << "\n\n\tEnter Current time to view your Courses" << endl;
+                    do {
+                        cout << "Day: "; cin >> day;
+                        cout << "Month: "; cin >> month;
+                    } while (CheckTimeInput(day, month) == false);
+                    for (int i = 0; i < p; i++)
+                    {
+                        if (checkdateStuC(SC, i, day, month))
+                            if (SC[i].StuID == user)
+                            {
+                                PrintElementStuC(SC, i);
+                                count++;
+                            }
+                    }
+                    if (count == 0) cout << "You haven't registered any courses in this semester\n";
+                    system("pause");
                 } break;
+                case 5:
+                {
+                    system("cls");
+                    Format("Scoreboard");
+                    int count = -1, day = 0, month = 0;
+                    cout << "\n\n\tEnter Current time to view your Courses" << endl;
+                    do {
+                        cout << "Day: "; cin >> day;
+                        cout << "Month: "; cin >> month;
+                    } while (CheckTimeInput(day, month) == false);
+                    for (int i = 0; i < p; i++)
+                    {
+                        if (checkdateStuC(SC, i, day, month))
+                            if (SC[i].StuID == user) count = i;
+                        if (count == -1) cout << "You haven't registered any courses in this semester\n";
+                        else
+                        {
+                            cout << "Student ID: " << SC[count].StuID << " | Name: " << SC[count].Fname << " " << SC[count].Lname << " | Other mark | Midterm mark | Final mark || Total mark\n";
+                            for (int i = 0; i < p; i++)
+                                if (checkdateStuC(SC, i, day, month))
+                                    if (SC[i].StuID == user)
+                                    {
+                                        ViewScore(SC, p, i);
+                                    }
+                        }
+                    }
+                    system("pause");
+                }break;
                 case 0: {
                     check_temp = false;
                 } break;
                 case -1: {
                     return false;
                 } break;
-                }
-            } while (check_temp);
+                } while (check_temp);
 
+            } while (true);
         }
         else {
             system("cls");
