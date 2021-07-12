@@ -509,6 +509,47 @@ bool checkdateStuC(StuCourses * SC, int i, int day, int month) {
     }
     return false;
 }
+// Create a school year
+void CreateSchoYear(int & schyear) {
+    cout << "Input the school year: ";
+    cin >> schyear;
+    cout << "You created new a school year: " << schyear << " - " << schyear + 1 << endl;
+    // tao 1 file csv chua thong tin cua nam hoc, hoc sinh, cua hoc ky moi
+    ofstream outfile;
+    outfile.open("NewSchoolYear.csv");
+    if (!outfile.is_open())
+        return;
+    outfile << "School Year" << endl;
+    outfile << schyear << "-" << schyear + 1 << endl;
+    outfile.close();
+}
+// Add new 1st stu to 1st classes
+void add1stStutoClas(int schoolYear, Student* S, int n) {
+    string clss;
+    cout << "\t List of 1st Student.\n";
+    PrintStu(S, n);
+    cin.ignore();
+    cout << "\t\t************" << endl;
+    cout << "Input the name of Class that you add 1st Student to: ";
+    getline(cin, clss);
+
+    
+    ofstream outfile;
+    outfile.open("NewSchoolYear.csv");
+    if (!outfile.is_open())
+        return;
+    int no = 1;
+    outfile << "No"<<"," << "School year" << "," << "Student ID" << "," << "First Name" << "," << "Last Name" << ","<<
+         "Gender" << "," << "Date of birth" << "," << "Social ID" << "," << "Class" << "," <<  endl;
+    for (int i = 0; i < n; i++) {
+        if (S[i].Class == clss) {
+            outfile << no <<"," << schoolYear <<"-" << schoolYear+ 1 << "," << S[i].StuID << "," << S[i].Fname << "," << S[i].Lname << "," << S[i].Gen <<
+                "," << S[i].day << "/" << S[i].month << "/" << S[i].year << "," << S[i].SocialID << "," << S[i].Class << endl;
+            no++;
+        }
+    }
+    outfile.close();
+}
 // create new course
 void CreateCourse(Courses * &C, int& t) {
     Courses temp;
@@ -636,7 +677,34 @@ void UpdateCourse(Courses * &C, int t) {
     if (count == 0)
         cout << "Course do not exist" << endl;
 }
-
+// delete course
+void delArray(Courses*& C, int &t, int i) {
+    for (i; i < t - 1; i++) {
+        C[i] = C[i + 1];
+    }
+    t--;
+}
+void delCourse(Courses*& C, int& t) {
+    string ID;
+    cin.ignore();
+    cout << "Input the Course's ID that you need to delete: ";
+    getline(cin, ID);
+    for (int i = 0; i < t; i++) {
+        if (ID == C[i].ID) {
+            char check;
+            cout << "Are you sure you want to permanently delete this Course(y/n)?: ";
+           
+            cin >> check;
+            if ((int)check == (int)'y') {
+                delArray(C, t, i);
+                return;
+            }
+            else
+                return;
+        }
+    }
+    cout << "Can not find this Course." << endl;
+}
 void registerCourses(Courses * &C, int& t)
 {
     int day = 0, month = 0, option = 0;
@@ -696,7 +764,8 @@ void registerCourses(Courses * &C, int& t)
         {
             system("cls");
             Format("Delete course");
-
+            delCourse(C, t);
+            WriteCourse(C, t);
             system("pause");
         }break;
         case 0:

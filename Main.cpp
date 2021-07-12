@@ -11,6 +11,7 @@ int main() {
     ReadCourses(C, t);
     ReadStuC(SC, p);
     string user, password;
+    int schoolYear = 0;
     do {
         Format("LOGIN");
         input(user, password);
@@ -25,8 +26,9 @@ int main() {
                 Format("TEACHER");
                 cout << "\n\t1. Change password.\n";
                 cout << "\t2. Update your personal information." << endl;
-                cout << "\t3. Create a course registration session." << endl;
+                cout << "\t3. Create a school year." << endl;
                 cout << "\t4. Add new 1st year students to 1st year classes." << endl;
+                cout << "\t5. Create a course registration session." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
                 cout << "\n\t\t*******************************************\n";
@@ -55,17 +57,28 @@ int main() {
                 } break;
                 case 3: {
                     system("cls");
+                    Format("Create a school year.");
+                    CreateSchoYear(schoolYear);
+                    system("pause");
+                } break;
+                case 4: {
+                    system("cls");
+                    Format("Add new 1st year students to 1st year classes.");
+                    if (schoolYear == 0) {
+                        cout << "You need to create a new school year before Add new 1st to classes." << endl;
+                    }
+                    else {
+                        add1stStutoClas(schoolYear, S, n);
+                    }
+                    system("pause");
+                } break;
+                case 5: {
+                    system("cls");
                     Format("Register course");
                     cout << "\tCourses existed: " << t << endl;
                     PrintCourses(C, t);
                     registerCourses(C, t);
                     system("pause");
-                } break;
-                case 4: {
-
-                } break;
-                case 5: {
-
                 } break;
                 case 0: {
                     check_temp = false;

@@ -109,9 +109,14 @@ void PrintCourses(Courses * C, int t);
 bool CheckTimeInput(int day, int month);
 bool checkdate(Courses * C, int i, int day, int month);
 void CreateCourse(Courses * &C, int& t);
+void CreateSchoYear(int& schyear);
+void add1stStutoClas(int schoolYear, Student* S, int n);
 void registerCourses(Courses * &C, int& t);
 void WriteCourse(Courses * C, int t);
 void UpdateCourse(Courses * &C, int t);
+void delArray(Courses*& C, int& t, int i);
+void delCourse(Courses*& C, int& t);
+
 
 //Cap nhap thong tin sinh vien
 void UpdateInforStu(Student * &S, int n, string ID);
