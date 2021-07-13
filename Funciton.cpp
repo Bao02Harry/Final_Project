@@ -6,7 +6,7 @@ void Color(int i) {
 // Toa do 
 void gotoxy(int x, int y) {
     HANDLE color;
-    color = GetStdHandle;
+    color = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coor = { x,y };
     SetConsoleCursorPosition(color, coor);
 }
@@ -17,21 +17,20 @@ void Paint(int x, int y, string a, int color) {
     cout << a;
 }
 // Dem phan tu cua danh sach hoc sinh
-int countStu() {
+int countStu()  {
     int count = 0;
-    errno_t err;
-    FILE* file;
-    err = fopen_s(&file, "Students.csv", "r");
-    if (file == NULL) {
+    ifstream ifile;
+    ifile.open("Teachers.csv");
+    if (!ifile.is_open()) {
         return 0;
     }
-    else {
-        while (!feof(file)) {
-            char c;
-            c = fgetc(file);
-            if (c == ',') count++;
-        }
+    string line;
+    getline(ifile, line);
+    while (ifile) {
+        getline(ifile, line);
+        count++;
     }
+    ifile.close();
     return count / 8;
 }
 
