@@ -12,6 +12,7 @@ int main() {
     ReadStuC(SC, p);
     string user, password;
     int schoolYear = 0;
+    bool check = true;
     do {
         Format("LOGIN");
         input(user, password);
@@ -81,10 +82,12 @@ int main() {
                     system("pause");
                 } break;
                 case 0: {
+                    cin.ignore();
                     check_temp = false;
                 } break;
                 case -1: {
-                    return false;
+                    
+                    check =  false;
                 } break;
                 }
             } while (check_temp);
@@ -119,6 +122,7 @@ int main() {
                 case 1:
                 {
                     system("cls");
+                    Format(" Change password");
                     changepassstu(S, n, user);
                     WriteAfterUdateStu(S, n);
                     system("pause");
@@ -188,25 +192,27 @@ int main() {
                     system("pause");
                 }break;
                 case 0: {
+                    cin.ignore();
                     check_temp = false;
                 } break;
                 case -1: {
-                    return false;
+                    check = false;
                 } break;
-                } while (check_temp);
-
-            } while (true);
+               }
+            } while (check_temp);
         }
         else {
             system("cls");
             Color(4);
             cout << "\n\tKhong co tai khoan trong he thong!";
             Sleep(3000);
+            cin.ignore();
             system("cls");
+
         }
 
 
-    } while (true);
+    } while (check);
 
 
     delete[] S;
@@ -215,3 +221,4 @@ int main() {
     system("pause");
     return 0;
 }
+
