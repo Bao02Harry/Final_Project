@@ -1,7 +1,6 @@
 #include "Header.h"
 
-int main() 
-{
+int main() {
     Student* S;
     Teacher* T;
     Courses* C;
@@ -14,19 +13,16 @@ int main()
     string user, password;
     int schoolYear = 0;
     bool check = true;
-    do 
-	{
+    do {
         Format("LOGIN");
         input(user, password);
         int pos = -1;
-        if (CheckPassTech(T, m, pos, user, password) == true) 
-		{
+        if (CheckPassTech(T, m, pos, user, password) == true) {
             system("cls");
             Color(10);
             int check_temp = true;
             int select = 0;
-            do 
-			{
+            do {
                 system("cls");
                 Format("TEACHER");
                 cout << "\n\t1. Change password.\n";
@@ -44,8 +40,7 @@ int main()
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
-                switch (select) 
-				{
+                switch (select) {
                 case 1:
                 {
                     system("cls");
@@ -53,76 +48,59 @@ int main()
                     changepassteacher(T, m, user);
                     WriteAfterUdateTeach(T, m);
                     system("pause");
-                }
-				break;
-                case 2: 
-				{
+                }break;
+                case 2: {
                     system("cls");
                     Format("Update personal information");
                     UpdateInforTeach(T, m, user);
                     WriteAfterUdateTeach(T, m);
                     system("pause");
-                } 
-				break;
-                case 3: 
-				{
+                } break;
+                case 3: {
                     system("cls");
                     Format("Create a school year.");
                     CreateSchoYear(schoolYear);
                     system("pause");
-                } 
-				break;
-                case 4: 
-				{
+                } break;
+                case 4: {
                     system("cls");
                     Format("Add new 1st year students to 1st year classes.");
-                    if (schoolYear == 0) 
-					{
+                    if (schoolYear == 0) {
                         cout << "You need to create a new school year before Add new 1st to classes." << endl;
                     }
-                    else 
-					{
+                    else {
                         add1stStutoClas(schoolYear, S, n);
                     }
                     system("pause");
-                } 
-				break;
-                case 5: 
-				{
+                } break;
+                case 5: {
                     system("cls");
                     Format("Register course");
                     cout << "\tCourses existed: " << t << endl;
                     PrintCourses(C, t);
                     registerCourses(C, t);
                     system("pause");
-                } 
-				break;
-                case 0: 
-				{
+                } break;
+                case 0: {
                     cin.ignore();
                     check_temp = false;
-                } 
-				break;
-                case -1: 
-				{
-                    
-                    check =  false;
-                } 
-				break;
+                } break;
+                case -1: {
+
+                    check = false;
+                } break;
                 }
             } while (check_temp);
 
 
 
         }
-        else if (CheckPassStu(S, n, pos, user, password) == true) 
-		{
+        else if (CheckPassStu(S, n, pos, user, password) == true) {
             system("cls");
             Color(10);
             int check_temp = true;
             int select = 0;
-            do 
-			{
+            do {
                 system("cls");
                 Format("STUDENT");
                 cout << "\n\t1. Change password";
@@ -140,8 +118,7 @@ int main()
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
-                switch (select) 
-				{
+                switch (select) {
                 case 1:
                 {
                     system("cls");
@@ -149,35 +126,28 @@ int main()
                     changepassstu(S, n, user);
                     WriteAfterUdateStu(S, n);
                     system("pause");
-                }
-				break;
-                case 2: 
-				{
+                }break;
+                case 2: {
                     system("cls");
                     Format("Update personal information");
                     UpdateInforStu(S, n, user);
                     WriteAfterUdateStu(S, n);
                     system("pause");
-                } 
-				break;
-                case 3: 
-				{
+                } break;
+                case 3: {
                     system("cls");
                     Format("Register course");
                     cout << "Courses existed: " << endl;
                     PrintCourses(C, t);
                     registerStuC(SC, p, C, t, S, n, user);
                     system("pause");
-                } 
-				break;
-                case 4: 
-				{
+                } break;
+                case 4: {
                     system("cls");
                     Format("List courses");
                     int count = 0, day = 0, month = 0;
                     cout << "\n\n\tEnter Current time to view your Courses" << endl;
-                    do 
-					{
+                    do {
                         cout << "Day: "; cin >> day;
                         cout << "Month: "; cin >> month;
                     } while (CheckTimeInput(day, month) == false);
@@ -192,16 +162,14 @@ int main()
                     }
                     if (count == 0) cout << "You haven't registered any courses in this semester\n";
                     system("pause");
-                } 
-				break;
+                } break;
                 case 5:
                 {
                     system("cls");
                     Format("Scoreboard");
                     int count = -1, day = 0, month = 0;
                     cout << "\n\n\tEnter Current time to view your Courses" << endl;
-                    do 
-					{
+                    do {
                         cout << "Day: "; cin >> day;
                         cout << "Month: "; cin >> month;
                     } while (CheckTimeInput(day, month) == false);
@@ -222,25 +190,18 @@ int main()
                         }
                     }
                     system("pause");
-                }
-				break;
-                case 0:
-				{
+                }break;
+                case 0: {
                     cin.ignore();
                     check_temp = false;
-                } 
-				break;
-                case -1: 
-				{
+                } break;
+                case -1: {
                     check = false;
-                } 
-				break;
-               }
-            } 
-			while (check_temp);
+                } break;
+                }
+            } while (check_temp);
         }
-        else 
-		{
+        else {
             system("cls");
             Color(4);
             cout << "\n\tKhong co tai khoan trong he thong!";
@@ -251,8 +212,7 @@ int main()
         }
 
 
-    } 
-	while (check);
+    } while (check);
 
 
     delete[] S;
@@ -261,4 +221,3 @@ int main()
     system("pause");
     return 0;
 }
-
