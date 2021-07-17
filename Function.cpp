@@ -828,7 +828,7 @@ void WriteAfterUdateStuC(StuCourses* SC, int p) {
 }
 
 
-void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int n, string ID)
+void registerStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, string ID)
 {
     int day = 0, month = 0, option = 0;
     cout << "\n\n\tEnter Current time to register Course" << endl;
@@ -886,8 +886,9 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
             }
             if (count >= 5)  
                 cout << "You can't register course because you have registered 5 courses\n";
-            else 
+            else {
                 addStuC(SC, p, C, t, S, n, ID);
+            }
             WriteAfterUdateStuC(SC, p);
             system("pause");
         }break;
@@ -967,7 +968,7 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
         if (SC[i].StuID == ID)
         {
             StuCourses SCtemp = SC[i];
-
+            
             SCtemp.CouID = C[position].ID;
             SCtemp.Cname = C[position].CName;
             SCtemp.credits = C[position].Credits;
@@ -985,7 +986,7 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
             SCtemp.final = 0;
             SCtemp.total = 0;
             addElementtoArr(SC, p, i, SCtemp);
-            break;
+            return;
         }
 }
 
@@ -1000,6 +1001,16 @@ bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int posit
 
             if (SC[i].day1 == C[position].day1) {
                 if (SC[i].session1 == C[position].session1)
+                    return false;
+            }
+
+            if (SC[i].day1 == C[position].day2) {
+                if (SC[i].session1 == C[position].session2)
+                    return false;
+            }
+
+            if (SC[i].day2 == C[position].day1) {
+                if (SC[i].session2 == C[position].session1)
                     return false;
             }
             if (SC[i].day2 == C[position].day2) {
@@ -1054,27 +1065,12 @@ void CheckDelStuC(StuCourses*& SC, int& p, string ID, int day, int month)
     cout << "The course ID you enter is wrong\n";
 }
 
-//Ghi file danh sach sinh vien dang ky hoc phan
-int countStuC() {
-    int count = 0;
-    ifstream infile;
-    infile.open("Stucourses.csv");
-    if (!infile.is_open()) {
-        return 0;
-    }
-    string line;
-    getline(infile, line);
-    while (infile) {
-        getline(infile, line);
-        count++;
-    }
-    infile.close();
-    return count;
-}
+
 
 void ViewScore(StuCourses* SC, int p, int i)
 {
-    cout << "Course ID : " << SC[i].CouID << " | Course : " << SC[i].Cname << ". Mark: " << SC[i].other << " | " << SC[i].midterm << " | " << SC[i].final << " | " << setprecision(2) << fixed << SC[i].total << endl;
+    cout << "Course ID : " << SC[i].CouID << " | Course : " << SC[i].Cname <<" | Total Mark: " << SC[i].total << " | Final Mark: " << SC[i].final <<
+        " | Midterm Mark: " << SC[i].midterm << " | Other Mark: " << SC[i].other << endl;
 }
 
 void PrintStuC(StuCourses* SC, int p) {
@@ -1084,5 +1080,6 @@ void PrintStuC(StuCourses* SC, int p) {
 }
 
 void PrintElementStuC(StuCourses* SC, int i) {
-    cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
+    cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << 
+        SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
 }

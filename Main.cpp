@@ -117,7 +117,7 @@ int main() {
                     PrintElementStu(S, pos);
                     cout << "\n\t Choose the option you wanna do: ";
                     cin >> select;
-                    while ((select < -1) || (select > 4))
+                    while ((select < -1) || (select > 5))
                     {
                         cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                     }
@@ -170,7 +170,7 @@ int main() {
                     {
                         system("cls");
                         Format("Scoreboard");
-                        int count = -1, day = 0, month = 0;
+                        int count = 0, day = 0, month = 0;
                         cout << "\n\n\tEnter Current time to view your Courses" << endl;
                         do {
                             cout << "Day: "; cin >> day;
@@ -178,18 +178,11 @@ int main() {
                         } while (CheckTimeInput(day, month) == false);
                         for (int i = 0; i < p; i++)
                         {
-                            if (checkdateStuC(SC, i, day, month))
-                                if (SC[i].StuID == user) count = i;
-                            if (count == -1) cout << "You haven't registered any courses in this semester\n";
-                            else
-                            {
-                                cout << "Student ID: " << SC[count].StuID << " | Name: " << SC[count].Fname << " " << SC[count].Lname << " | Other mark | Midterm mark | Final mark || Total mark\n";
-                                for (int i = 0; i < p; i++)
-                                    if (checkdateStuC(SC, i, day, month))
-                                        if (SC[i].StuID == user)
-                                        {
-                                            ViewScore(SC, p, i);
-                                        }
+                            if (checkdateStuC(SC, i, day, month)) {
+                                if (SC[i].StuID == user) {
+                                    ViewScore(SC, p, i);
+                                }
+
                             }
                         }
                         system("pause");
