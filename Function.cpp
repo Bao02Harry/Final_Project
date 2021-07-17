@@ -881,14 +881,13 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
             int count = 0;
             for (int i = 0; i < p; i++)
             {
-                if (checkdateStuC(SC, i, day, month))
-                {
-                    if (SC[i].StuID == ID) count++;
-                    if (count == 5) continue;
-                }
+                if (SC[i].StuID == ID)
+                    count++;
             }
-            if (count >= 5)  cout << "You can't register course because you have registered 5 courses\n";
-            else addStuC(SC, p, C, t, S, n, ID);
+            if (count >= 5)  
+                cout << "You can't register course because you have registered 5 courses\n";
+            else 
+                addStuC(SC, p, C, t, S, n, ID);
             WriteAfterUdateStuC(SC, p);
             system("pause");
         }break;
@@ -934,13 +933,28 @@ void registerStuC(StuCourses*& SC, int& p, Courses*& C, int t, Student*& S, int 
         }
     }
 }
+// them vao mang vao sau vi tri i
+void addElementtoArr(StuCourses*& SC, int &p, int i, StuCourses temp) {
+    StuCourses* SCnew = new StuCourses[p + 1];
+    copy(SC, SC + p, SCnew);
+    SCnew[p] = SC[p - 1];
+    delete[]SC;
+    SC = SCnew;
+    p++;
+    for (int j = p - 2; j > i + 1; j --) {
+        SC[j] = SC[j - 1];
+    }
+    SC[i + 1] = temp;
+}
 
 void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, string ID)
 {
     int position = 0;
     string temp;
     cout << "Please enter exactly the course ID of the course you wanna register: ";
+    cin.ignore();
     getline(cin, temp);
+
     position = ExistCourse(C, t, temp);
     while ((position < 0) || (unduplicated(SC, p, C, t, ID, position) == false));
     {
@@ -949,50 +963,51 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
         getline(cin, temp);
         position = ExistCourse(C, t, temp);
     }
-    StuCourses* SCnew = new StuCourses[p + 1];
-    copy(SC, SC + p, SCnew);
-    SCnew[p].No = p;
-    SCnew[p].StuID = ID;
-    for (int i = 0; i < n; i++)
-        if (S[i].StuID == ID)
+    for (int i = 0; i < p; i++)
+        if (SC[i].StuID == ID)
         {
-            SCnew[p].Fname = S[i].Fname;
-            SCnew[p].Lname = S[i].Lname;
-            SCnew[p].Gen = S[i].Gen;
-            SCnew[p].Class = S[i].Class;
-            continue;
+            StuCourses SCtemp = SC[i];
+
+            SCtemp.CouID = C[position].ID;
+            SCtemp.Cname = C[position].CName;
+            SCtemp.credits = C[position].Credits;
+            SCtemp.Tname = C[position].TName;
+            SCtemp.day1 = C[position].day1;
+            SCtemp.session1 = C[position].session1;
+            SCtemp.day2 = C[position].day2;
+            SCtemp.session2 = C[position].session2;
+            SCtemp.daystart = C[position].daystart;
+            SCtemp.monthstart = C[position].monthstart;
+            SCtemp.dayend = C[position].dayend;
+            SCtemp.monthend = C[position].monthend;
+            SCtemp.other = 0;
+            SCtemp.midterm = 0;
+            SCtemp.final = 0;
+            SCtemp.total = 0;
+            addElementtoArr(SC, p, i, SCtemp);
+            break;
         }
-    SCnew[p].CouID = C[position].ID;
-    SCnew[p].Cname = C[position].CName;
-    SCnew[p].credits = C[position].Credits;
-    SCnew[p].Tname = C[position].TName;
-    SCnew[p].day1 = C[position].day1;
-    SCnew[p].session1 = C[position].session1;
-    SCnew[p].day2 = C[position].day2;
-    SCnew[p].session2 = C[position].session2;
-    SCnew[p].daystart = C[position].daystart;
-    SCnew[p].monthstart = C[position].monthstart;
-    SCnew[p].dayend = C[position].dayend;
-    SCnew[p].monthend = C[position].monthend;
-    SCnew[p].other = 0;
-    SCnew[p].midterm = 0;
-    SCnew[p].final = 0;
-    SCnew[p].total = 0;
-    p++;
-    delete[] SC;
-    SC = SCnew;
 }
 
 bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int position)
 {
-    for (int i = 0; i < p; i++)
+    for (int i = 0; i < p; i++) {
         if (SC[i].StuID == ID)
         {
-            if (SC[i].day1 == C[position].day1)
-                if (SC[i].session1 == C[position].session1) return false;
-            if (SC[i].day2 == C[position].day2)
-                if (SC[i].session2 == C[position].session2) return false;
+            if (SC[i].Cname == C[position].CName) {
+                return false;
+            }
+
+            if (SC[i].day1 == C[position].day1) {
+                if (SC[i].session1 == C[position].session1)
+                    return false;
+            }
+            if (SC[i].day2 == C[position].day2) {
+                if (SC[i].session2 == C[position].session2)
+                    return false;
+            }
         }
+    }
     return true;
 }
 
