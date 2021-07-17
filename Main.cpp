@@ -9,7 +9,8 @@ int main() {
     ReadStudent(S, n);
     ReadTeacher(T, m);
     ReadCourses(C, t);
-    ReadStuC(SC, p);
+    WriteRegisterStuDefault(C, t, S, n, SC, p);
+    WriteAfterUdateStuC(SC, p);
     string user, password;
     int schoolYear = 0;
     bool check = true;

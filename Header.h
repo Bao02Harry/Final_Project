@@ -7,7 +7,7 @@
 #include <string>
 #include <string.h>
 #include <cmath>
-#include <time.h>
+#include <ctime>
 #include <malloc.h>
 #include <iomanip>
 
@@ -139,7 +139,7 @@ void ViewScore(StuCourses* SC, int p, int i);
 
 int countStuC();
 bool checkdateStuC(StuCourses* SC, int i, int day, int month);
-void ReadStuC(StuCourses*& SC, int& p);
+void WriteRegisterStuDefault(Courses* C, int t, Student* S, int n, StuCourses*& SC, int& p);
 void PrintStuC(StuCourses* SC, int p);
 void PrintElementStuC(StuCourses* SC, int i);
 void WriteAfterUdateStuC(StuCourses* SC, int p);
