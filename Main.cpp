@@ -14,6 +14,7 @@ int main() {
     string user, password;
     int schoolYear = 0;
     bool check = true;
+    int count = 0;
     do {
         Format("LOGIN");
         input(user, password);
@@ -31,13 +32,19 @@ int main() {
                 cout << "\t3. Create a school year." << endl;
                 cout << "\t4. Add new 1st year students to 1st year classes." << endl;
                 cout << "\t5. Create a course registration session." << endl;
+                cout << "\t6. Export list of students in a course." << endl;
+                cout << "\t7. Enter and view the scoreboard of a course." << endl;
+                cout << "\t8. View the scoreboard of a course." << endl;
+                cout << "\t9. Import the scoreboard of a course." << endl;
+                cout << "\t10. Update a student result." << endl;
+                cout << "\t11. View the scoreboard of a class." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
                 cout << "\n\t\t*******************************************\n";
                 PrintElementTech(T, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
-                while ((select < -1) || (select > 5))
+                while ((select < -1) || (select > 10))
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
@@ -82,6 +89,61 @@ int main() {
                     registerCourses(C, t);
                     system("pause");
                 } break;
+                case 6:
+                {
+                    system("cls");
+                    Format("Export list of students in a course");
+                    ExportStu(SC, p);
+                    system("pause");
+                } break;
+
+                case 7: {
+                    system("cls");
+                    Format("Enter the scoreboard of a course.");
+                    EnterscoreboardACour(SC, p, pos, C, T);
+                    WriteAfterUdateStuC(SC, p);
+                    count = 7;
+                    system("pause");
+                } break;
+
+                case 8: {
+                    system("cls");
+                    if (count != 7) {
+                        cout << "You need enter the scoreboard of your course before!" << endl;
+                    }
+                    else {
+                        Format("View the scoreboard of a course.");
+                        PrintElementTech(T, pos);
+                        ViewScoreBoard(SC, p, pos, C);
+                    }
+                    system("pause");
+                } break;
+                case 9:
+                {
+                    system("cls");
+                    if (count != 7) {
+                        cout << "You need enter the scoreboard of your course before!" << endl;
+                    }
+                    else {
+                        Format("Import the scoreboard of a course.");
+                        ImportScoreBoard(SC, p, pos, C);
+                    }
+                    system("pause");
+                } break;
+
+                case 10: {
+                    system("cls");
+                    Format("Update a student result.");
+                    ExportStu(SC, p);
+                    system("pause");
+                } break;
+
+                case 11: {
+                    system("cls");
+                    Format("View the scoreboard of a class.");
+                    ExportStu(SC, p);
+                    system("pause");
+                } break;
                 case 0: {
                     cin.ignore();
                     check_temp = false;
@@ -111,13 +173,14 @@ int main() {
                     cout << "\t3. Register for the course." << endl;
                     cout << "\t4. View list of courses, classes and students." << endl;
                     cout << "\t5. View your scoreboard." << endl;
+                    cout << "\t6. View list of students in a course." << endl;
                     cout << "\t0. Log out." << endl;
                     cout << "\t-1. Exit" << endl;
                     cout << "\n\t\t*******************************************\n";
                     PrintElementStu(S, pos);
                     cout << "\n\t Choose the option you wanna do: ";
                     cin >> select;
-                    while ((select < -1) || (select > 5))
+                    while ((select < -1) || (select > 6))
                     {
                         cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                     }
@@ -159,7 +222,7 @@ int main() {
                             if (checkdateStuC(SC, i, day, month))
                                 if (SC[i].StuID == user)
                                 {
-                                    PrintElementStuC(SC, i);
+                                    printStuCour(SC, i);
                                     count++;
                                 }
                         }
@@ -187,6 +250,30 @@ int main() {
                         }
                         system("pause");
                     }break;
+                    case 6: {
+                        system("cls");
+                        string ID;
+                        Format("View list of students in a course");
+                        int count = 0, day = 0, month = 0;
+                        cout << "\tEnter Current time to view your Courses" << endl;
+                        do {
+                            cout << "Day: "; cin >> day;
+                            cout << "Month: "; cin >> month;
+                        } while (CheckTimeInput(day, month) == false);
+                        cout << "\tEnter ID of courses to view list students: ";
+                        cin.ignore();
+                        getline(cin, ID);
+                        for (int i = 0; i < p; i++)
+                        {
+                            if (checkdateStuC(SC, i, day, month)) {
+                                if (SC[i].CouID == ID) {
+                                    printStuCour(SC, i);
+                                }
+                            }
+                        }
+                        system("pause");
+
+                    } break;
                     case 0: {
                         cin.ignore();
                         check_temp = false;

@@ -804,10 +804,10 @@ void WriteRegisterStuDefault(Courses* C, int t, Student* S, int n, StuCourses*& 
             SC[i].monthstart = C[j].monthstart;
             SC[i].dayend = C[j].dayend;
             SC[i].monthend = C[j].monthend;
-        SC[i].other = 0;
-        SC[i].midterm = 0;
-        SC[i].final = 0;
-        SC[i].total = 0;
+        SC[i].other = rand() % 11;
+        SC[i].midterm = rand() % 11;
+        SC[i].final = rand() % 11;
+        SC[i].total = rand() % 11;
        
     }
 }
@@ -902,7 +902,7 @@ void registerStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n,
                 if (checkdateStuC(SC, i, day, month))
                     if (SC[i].StuID == ID)
                     {
-                        PrintElementStuC(SC, i);
+                        printStuCour(SC, i);
                         count++;
                     }
             }
@@ -919,7 +919,7 @@ void registerStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n,
                 if (checkdateStuC(SC, i, day, month))
                     if (SC[i].StuID == ID)
                     {
-                        PrintElementStuC(SC, i);
+                        printStuCour(SC, i);
                         count++;
                     }
             }
@@ -1086,11 +1086,72 @@ void ViewScore(StuCourses* SC, int p, int i)
 
 void PrintStuC(StuCourses* SC, int p) {
     for (int i = 0; i < p; i++) {
-        cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
+        cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
     }
 }
 
-void PrintElementStuC(StuCourses* SC, int i) {
-    cout << "Student ID: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << 
-        SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
+// in hoc sinh trong khoa hoc
+void printStuCour(StuCourses* SC, int i) {
+    cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
+}
+void ExportStu(StuCourses* SC, int p) {
+    string ID;
+    cout << "Enter a ID Course that you want to export: ";
+    cin.ignore();
+    getline(cin, ID);
+    ofstream outfile;
+    outfile.open(ID + ".csv");
+    outfile << "Student ID" << ","<< "Name" <<"," << "Class" << ","<< "Course ID" << ","<< "Course Name" << "," << "Date Start" << "," << "Date end" << endl;
+    for (int i = 0; i < p; i++) {
+        if (ID == SC[i].CouID) {
+            outfile <<  SC[i].StuID << "," << SC[i].Fname << " " << SC[i].Lname << "," << SC[i].Class << "," << SC[i].CouID << "," << SC[i].Cname << "," << SC[i].daystart << "/" << SC[i].monthstart << "," << SC[i].dayend << "/" << SC[i].monthend << endl;
+        }
+    }
+    outfile.close();
+}
+
+
+
+
+
+void EnterscoreboardACour(StuCourses* &SC, int p, int pos, Courses *C, Teacher* T) {
+    for (int i = 0; i < p; i++) {
+        if (C[pos].ID == SC[i].CouID) {
+            PrintElementTech(T, pos);
+            cout << "\t\tEnter Score for student:" << endl;
+            printStuCour(SC, i);
+            cout << "Total mark: ";
+            cin >> SC[i].total;
+            cout << "Final mark: ";
+            cin >> SC[i].final;
+            cout << "Midterm mark: ";
+            cin >> SC[i].midterm;
+            cout << "Other mark: ";
+            cin >> SC[i].other;
+            system("cls");
+        }
+    }
+}
+
+void ViewScoreBoard(StuCourses* SC, int p, int pos, Courses* C) {
+    for (int i = 0; i < p; i++) {
+        if (C[pos].ID == SC[i].CouID) {
+            cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend 
+               << " | Total Mark: " << SC[i].total << " | Final Mark: " << SC[i].final <<
+                " | Midterm Mark: " << SC[i].midterm << " | Other Mark: " << SC[i].other << endl;
+        }
+    }
+}
+void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C) {
+    ofstream outfile;
+    outfile.open("Score_" + C[pos].ID + ".csv");
+    outfile << "Student ID" << "," << "Name" << "," << "Class" << "," << "Course ID" << "," << "Course Name" << "," << "Teacher Name" << "," << "Date Start" << "," << "Date end" << ","
+        << "Total Mark" << "," << "Final Mark" << "," << "Midterm Mark" << "," << "Other Mark" << endl;
+    for (int i = 0; i < p; i++) {
+        if (C[pos].ID == SC[i].CouID) {
+            outfile << SC[i].StuID << "," << SC[i].Fname << " " << SC[i].Lname << "," << SC[i].Class << "," << SC[i].CouID << "," << SC[i].Class << "," << SC[i].Tname << ","
+                << SC[i].daystart << "/" << SC[i].monthstart << "," << SC[i].dayend << "/" << SC[i].monthend << "," << SC[i].total << "," << SC[i].final << "," << SC[i].midterm << "," << SC[i].other << endl;
+         }
+    }
+    outfile.close();
 }

@@ -142,9 +142,14 @@ void ViewScore(StuCourses* SC, int p, int i);
 bool checkdateStuC(StuCourses* SC, int i, int day, int month);
 void WriteRegisterStuDefault(Courses* C, int t, Student* S, int n, StuCourses*& SC, int& p);
 void PrintStuC(StuCourses* SC, int p);
-void PrintElementStuC(StuCourses* SC, int i);
 void WriteAfterUdateStuC(StuCourses* SC, int p);
+void printStuCour(StuCourses* SC, int i);
 
+
+void ExportStu(StuCourses* SC, int p);
+void EnterscoreboardACour(StuCourses*& SC, int p, int pos, Courses* C, Teacher* T);
+void ViewScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
+void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
 
 #endif
 
