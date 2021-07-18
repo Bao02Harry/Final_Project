@@ -781,7 +781,7 @@ void registerCourses(Courses*& C, int& t)
 void WriteRegisterStuDefault(Courses* C, int t, Student* S, int n, StuCourses*& SC, int& p) {
     p = n;
     SC = new StuCourses[p];
-    srand((unsigned int)time);
+  
     for (int i = 0; i < p; i++) {
         SC[i].No = S[i].No;
         SC[i].StuID = S[i].StuID;
@@ -955,9 +955,8 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
     cout << "Please enter exactly the course ID of the course you wanna register: ";
     cin.ignore();
     getline(cin, temp);
-
     position = ExistCourse(C, t, temp);
-    while ((position < 0) || (unduplicated(SC, p, C, t, ID, position) == false));
+    while (position == -1 || unduplicated(SC, p, C, t, ID, position) == false);
     {
         cout << "The course ID doesn't exist or it has duplicated with your schedule this semester\n";
         cout << "Please enter exactly the course ID of the course you wanna register: ";
@@ -967,8 +966,13 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
     for (int i = 0; i < p; i++)
         if (SC[i].StuID == ID)
         {
-            StuCourses SCtemp = SC[i];
-            
+            StuCourses SCtemp;
+            SCtemp.No = SC[i].No + 1;
+            SCtemp.StuID = SC[i].StuID;
+            SCtemp.Fname = SC[i].Fname;
+            SCtemp.Lname = SC[i].Lname;
+            SCtemp.Gen = SC[i].Gen;
+            SCtemp.Class = SC[i].Class;
             SCtemp.CouID = C[position].ID;
             SCtemp.Cname = C[position].CName;
             SCtemp.credits = C[position].Credits;
@@ -986,7 +990,7 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
             SCtemp.final = 0;
             SCtemp.total = 0;
             addElementtoArr(SC, p, i, SCtemp);
-            return;
+            break;
         }
 }
 
@@ -1018,6 +1022,7 @@ bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int posit
                     return false;
             }
         }
+        
     }
     return true;
 }
@@ -1025,17 +1030,22 @@ bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int posit
 int ExistCourse(Courses* C, int t, string ID)
 {
     for (int i = 0; i < t; i++)
-        if (C[i].ID == ID) return i;
+        if (C[i].ID == ID)
+            return i;
     return -1;
 }
 
 
 void DelStuC(StuCourses*& SC, int& p, int i)
 {
-    for (int i = 0; i < (p - 1); i++)
+    for (int j = i; i < (p - 2); i++)
     {
         SC[i] = SC[i + 1];
     }
+    StuCourses* SCnew = new StuCourses[p - 1];
+    copy(SC, SC + p -1, SCnew);
+    delete[]SC;
+    SC = SCnew;
     p--;
 }
 
@@ -1059,7 +1069,8 @@ void CheckDelStuC(StuCourses*& SC, int& p, string ID, int day, int month)
                     DelStuC(SC, p, i);
                     return;
                 }
-                else if ((int)check == (int)'n') return;
+                else
+                    return;
             }
     }
     cout << "The course ID you enter is wrong\n";
