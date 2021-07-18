@@ -1,4 +1,3 @@
-
 #include "Header.h"
 void Color(int i) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
@@ -1154,4 +1153,37 @@ void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C) {
          }
     }
     outfile.close();
+}
+void UpdateStuResult(StuCourses*& SC, int p) {
+    string ID;
+    cin.ignore();
+    cout << "Enter the ID of student that you need to update: ";
+    getline(cin, ID);
+    for (int i = 0; i < p; i++) {
+        if (ID == SC[i].StuID) {
+            cout << "Name: " << SC[i].Fname << " " << SC[i].Lname << " | ID: " << SC[i].StuID << endl;
+            cout << "Total Mark: ";
+            cin >> SC[i].total;
+            cout << "Final Mark: ";
+            cin >> SC[i].final;
+            cout << "Midterm Mark: ";
+            cin >> SC[i].midterm;
+            cout << "Other Mark: ";
+            cin >> SC[i].other;
+        }
+    }
+}
+void ScoreBoardClass(StuCourses* SC, int p) {
+    string ID;
+    cin.ignore();
+    cout << "Enter ID of a course that you want to see it: ";
+    getline(cin, ID);
+    for (int i = 0; i < p; i++) {
+        if (ID == SC[i].CouID)
+        {
+            cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend <<
+                " | Total Mark: " << SC[i].total << " | Final Mark: " << SC[i].final <<
+                " | Midterm Mark: " << SC[i].midterm << " | Other Mark: " << SC[i].other << endl;
+        }
+    }
 }

@@ -150,6 +150,8 @@ void ExportStu(StuCourses* SC, int p);
 void EnterscoreboardACour(StuCourses*& SC, int p, int pos, Courses* C, Teacher* T);
 void ViewScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
 void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
+void UpdateStuResult(StuCourses*& SC, int p);
+void ScoreBoardClass(StuCourses* SC, int p);
 
 #endif
 

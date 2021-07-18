@@ -44,7 +44,7 @@ int main() {
                 PrintElementTech(T, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
-                while ((select < -1) || (select > 10))
+                while ((select < -1) || (select > 11))
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
@@ -134,14 +134,16 @@ int main() {
                 case 10: {
                     system("cls");
                     Format("Update a student result.");
-                    ExportStu(SC, p);
+                    ViewScoreBoard(SC, p, pos, C);
+                    UpdateStuResult(SC, p);
+                    WriteAfterUdateStuC(SC, p);
                     system("pause");
                 } break;
 
                 case 11: {
                     system("cls");
                     Format("View the scoreboard of a class.");
-                    ExportStu(SC, p);
+                    ScoreBoardClass(SC, p);
                     system("pause");
                 } break;
                 case 0: {
