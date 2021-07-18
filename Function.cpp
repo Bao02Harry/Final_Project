@@ -879,9 +879,9 @@ void registerStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n,
             }
             int count = 0;
             for (int i = 0; i < p; i++)
-            {
-                if (SC[i].StuID == ID)
-                    count++;
+            {   
+                if (checkdate(C, i, day, month))
+                    if (SC[i].StuID == ID) count++;
             }
             if (count >= 5)  
                 cout << "You can't register course because you have registered 5 courses\n";
@@ -955,7 +955,7 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
     cin.ignore();
     getline(cin, temp);
     position = ExistCourse(C, t, temp);
-    while (position == -1 || unduplicated(SC, p, C, t, ID, position) == false);
+    while (position == -1 || unduplicated(SC, p, C, t, ID, position) == false)
     {
         cout << "The course ID doesn't exist or it has duplicated with your schedule this semester\n";
         cout << "Please enter exactly the course ID of the course you wanna register: ";
@@ -995,23 +995,17 @@ void addStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n, stri
 
 bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int position)
 {
+    if (position == -1) return false;
     for (int i = 0; i < p; i++) {
-        if (SC[i].StuID == ID)
+        if ((SC[i].StuID == ID) && (SC[i].Cname == C[position].CName))
         {
-            if (SC[i].Cname == C[position].CName) {
-                return false;
-            }
-
             if (SC[i].day1 == C[position].day1) {
-                if (SC[i].session1 == C[position].session1)
-                    return false;
+                if (SC[i].session1 == C[position].session1) return false;
             }
-
             if (SC[i].day1 == C[position].day2) {
                 if (SC[i].session1 == C[position].session2)
                     return false;
             }
-
             if (SC[i].day2 == C[position].day1) {
                 if (SC[i].session2 == C[position].session1)
                     return false;
@@ -1093,11 +1087,23 @@ void PrintStuC(StuCourses* SC, int p) {
 void printStuCour(StuCourses* SC, int i) {
     cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend << endl;
 }
+
+bool checkexport(StuCourses* SC, int p, string temp)
+{
+    for (int i = 0; i < p; i++)
+    {
+        if (SC[i].StuID == temp) return true;
+    }
+    return false;
+}
+
 void ExportStu(StuCourses* SC, int p) {
     string ID;
-    cout << "Enter a ID Course that you want to export: ";
-    cin.ignore();
-    getline(cin, ID);
+    do {
+        cout << "Enter a ID Course that you want to export: ";
+        cin.ignore();
+        getline(cin, ID);
+    } while (checkexport(SC, p, ID) == false);
     ofstream outfile;
     outfile.open(ID + ".csv");
     outfile << "Student ID" << ","<< "Name" <<"," << "Class" << ","<< "Course ID" << ","<< "Course Name" << "," << "Date Start" << "," << "Date end" << endl;
@@ -1109,24 +1115,19 @@ void ExportStu(StuCourses* SC, int p) {
     outfile.close();
 }
 
-
-
-
-
 void EnterscoreboardACour(StuCourses* &SC, int p, int pos, Courses *C, Teacher* T) {
     for (int i = 0; i < p; i++) {
         if (C[pos].ID == SC[i].CouID) {
             PrintElementTech(T, pos);
             cout << "\t\tEnter Score for student:" << endl;
             printStuCour(SC, i);
-            cout << "Total mark: ";
-            cin >> SC[i].total;
             cout << "Final mark: ";
             cin >> SC[i].final;
             cout << "Midterm mark: ";
             cin >> SC[i].midterm;
             cout << "Other mark: ";
             cin >> SC[i].other;
+            SC[i].total = (SC[i].other + SC[i].midterm + 2 * SC[i].final) / 4;
             system("cls");
         }
     }
@@ -1141,6 +1142,7 @@ void ViewScoreBoard(StuCourses* SC, int p, int pos, Courses* C) {
         }
     }
 }
+
 void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C) {
     ofstream outfile;
     outfile.open("Score_" + C[pos].ID + ".csv");
@@ -1162,14 +1164,13 @@ void UpdateStuResult(StuCourses*& SC, int p) {
     for (int i = 0; i < p; i++) {
         if (ID == SC[i].StuID) {
             cout << "Name: " << SC[i].Fname << " " << SC[i].Lname << " | ID: " << SC[i].StuID << endl;
-            cout << "Total Mark: ";
-            cin >> SC[i].total;
             cout << "Final Mark: ";
             cin >> SC[i].final;
             cout << "Midterm Mark: ";
             cin >> SC[i].midterm;
             cout << "Other Mark: ";
             cin >> SC[i].other;
+            SC[i].total = (SC[i].other + SC[i].midterm + 2 * SC[i].final) / 4;
         }
     }
 }

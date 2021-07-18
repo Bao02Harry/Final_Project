@@ -173,7 +173,7 @@ int main() {
                     cout << "\n\t1. Change password";
                     cout << "\n\t2. Update your personal information." << endl;
                     cout << "\t3. Register for the course." << endl;
-                    cout << "\t4. View list of courses, classes and students." << endl;
+                    cout << "\t4. View your schedule." << endl;
                     cout << "\t5. View your scoreboard." << endl;
                     cout << "\t6. View list of students in a course." << endl;
                     cout << "\t0. Log out." << endl;
@@ -212,7 +212,7 @@ int main() {
                     } break;
                     case 4: {
                         system("cls");
-                        Format("List courses");
+                        Format("Schedule");
                         int count = 0, day = 0, month = 0;
                         cout << "\n\n\tEnter Current time to view your Courses" << endl;
                         do {
@@ -247,15 +247,14 @@ int main() {
                                 if (SC[i].StuID == user) {
                                     ViewScore(SC, p, i);
                                 }
-
                             }
                         }
                         system("pause");
                     }break;
                     case 6: {
                         system("cls");
+                        Format("Classmate");
                         string ID;
-                        Format("View list of students in a course");
                         int count = 0, day = 0, month = 0;
                         cout << "\tEnter Current time to view your Courses" << endl;
                         do {
