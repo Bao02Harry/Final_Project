@@ -5,11 +5,8 @@
 #include <fstream>
 #include <windows.h>
 #include <string>
-#include <string.h>
 #include <cmath>
 #include <ctime>
-#include <malloc.h>
-#include <iomanip>
 
 using namespace std;
 struct Teacher {
@@ -92,9 +89,6 @@ int countTech();
 void ReadTeacher(Teacher*& T, int& n);
 void PrintTech(Teacher* T, int m);
 void PrintElementTech(Teacher* T, int i);
-
-
-void encode(string& s);
 
 
 bool CheckPassTech(Teacher* T, int m, int& pos, string user, string Pass);
