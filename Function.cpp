@@ -860,7 +860,7 @@ void registerStuC(StuCourses*& SC, int& p, Courses* C, int t, Student* S, int n,
             int count = 0;
             for (int i = 0; i < p; i++)
             {
-                if (checkdate(C, i, day, month))
+                if (checkdateStuC(SC, i, day, month))
                     if (SC[i].StuID == ID) count++;
             }
             if (count >= 5)
