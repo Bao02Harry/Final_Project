@@ -786,7 +786,7 @@ void WriteRegisterStuDefault(Courses* C, int t, Student* S, int n, StuCourses*& 
         SC[i].other = rand() % 11;
         SC[i].midterm = rand() % 11;
         SC[i].final = rand() % 11;
-        SC[i].total = rand() % 11;
+        SC[i].total = (SC[i].other + SC[i].midterm + 2 * SC[i].final) / 4;
 
     }
 }
@@ -1049,8 +1049,6 @@ void CheckDelStuC(StuCourses*& SC, int& p, string ID, int day, int month)
     cout << "The course ID you enter is wrong\n";
 }
 
-
-
 void ViewScore(StuCourses* SC, int p, int i)
 {
     cout << "Course ID : " << SC[i].CouID << " | Course : " << SC[i].Cname << " | Total Mark: " << SC[i].total << " | Final Mark: " << SC[i].final <<
@@ -1167,4 +1165,29 @@ void ScoreBoardClass(StuCourses* SC, int p) {
                 " | Midterm Mark: " << SC[i].midterm << " | Other Mark: " << SC[i].other << endl;
         }
     }
+}
+
+void viewClasses(Classes* & Clas, int & k, Student * S, int n)
+{
+    int count = 0;
+    Clas = new Classes[n - 1];
+    Clas[k-1].name = S[0].Class; //k=1
+    Clas[k-1].num = 1;
+    for (int i = 0; i < n; i++)
+        if (S[i].Class != Clas[k].name)
+        {
+            count = 0;
+            for (int j = 0; j < k; j++)
+            {
+                if (S[i].Class == Clas[j].name)count++;
+            }
+            if (count == 0)
+            {
+                Clas[k].name = S[i].Class;
+                k++;
+            }
+        }
+    for (int i = 0; i < k; i++)
+        for (int j = 0; j < n; j++)
+            if (Clas[i].name == S[j].Class) Clas[i].num++;
 }

@@ -73,6 +73,11 @@ struct StuCourses {
     float total;
 };
 
+struct Classes {
+    string name;
+    int num;
+};
+
 void Color(int i);
 void gotoxy(int x, int y);
 void Paint(int x, int y, string a, int color);
@@ -146,6 +151,8 @@ void ViewScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
 void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
 void UpdateStuResult(StuCourses*& SC, int p);
 void ScoreBoardClass(StuCourses* SC, int p);
+
+void viewClasses(Classes*& Clas, int& k, Student* S, int n);
 
 #endif
 

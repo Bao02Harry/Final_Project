@@ -5,7 +5,8 @@ int main() {
     Teacher* T;
     Courses* C;
     StuCourses* SC;
-    int n = 0, m = 0, t = 0, p = 0;;
+    Classes* Clas;
+    int n = 0, m = 0, t = 0, p = 0, k = 1;
     ReadStudent(S, n);
     ReadTeacher(T, m);
     ReadCourses(C, t);
@@ -176,13 +177,15 @@ int main() {
                     cout << "\t4. View your schedule." << endl;
                     cout << "\t5. View your scoreboard." << endl;
                     cout << "\t6. View list of students in a course." << endl;
+                    cout << "\t7. View  of classes" << endl;
+                    cout << "\t8. View list of students in a class" << endl;
                     cout << "\t0. Log out." << endl;
                     cout << "\t-1. Exit" << endl;
                     cout << "\n\t\t*******************************************\n";
                     PrintElementStu(S, pos);
                     cout << "\n\t Choose the option you wanna do: ";
                     cin >> select;
-                    while ((select < -1) || (select > 6))
+                    while ((select < -1) || (select > 8))
                     {
                         cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                     }
@@ -253,7 +256,7 @@ int main() {
                     }break;
                     case 6: {
                         system("cls");
-                        Format("Classmate");
+                        Format("List students in a course");
                         string ID;
                         int count = 0, day = 0, month = 0;
                         cout << "\tEnter Current time to view your Courses" << endl;
@@ -275,6 +278,33 @@ int main() {
                         system("pause");
 
                     } break;
+                    case 7:
+                    {
+                        system("cls");
+                        Format("list of classes");
+                        viewClasses(Clas, k, S, n);
+                        for (int i = 0; i < k; i++)
+                        {
+                            cout << "\n\t Class: " << Clas[i].name << " | " << Clas[i].num << " Students "<< endl;
+                        }
+                        system("pause");
+                    } break;
+                    case 8:
+                    {
+                        system("cls");
+                        Format("list student in a class");
+                        string ID;                       
+                        cout << "\tEnter ID of class to view list students: ";
+                        cin.ignore();
+                        getline(cin, ID);
+                        for (int i = 0; i < p; i++)
+                        {
+                            if (SC[i].Class == ID) {
+                                printStuCour(SC, i);
+                            }
+                        }
+                        system("pause");
+                    }break;
                     case 0: {
                         cin.ignore();
                         check_temp = false;
