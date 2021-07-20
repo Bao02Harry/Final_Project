@@ -441,9 +441,10 @@ bool CheckTimeInput(int day, int month) {
             return false;
     } break;
     case 2: {
-        if (day > 39 || day < 1)
+        if (day > 29 || day < 1)
             return false;
     } break;
+    default: return false;
     }
     return true;
 }
