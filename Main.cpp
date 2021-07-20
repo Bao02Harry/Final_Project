@@ -154,7 +154,7 @@ int main() {
                     Format("View the scoreboard of a course.");
                     ScoreBoardCourse(SC, p);
                     system("pause");
-                }
+                } break;
                 case 0: {
                     cin.ignore();
                     check_temp = false;
