@@ -1153,13 +1153,28 @@ void UpdateStuResult(StuCourses*& SC, int p) {
         }
     }
 }
-void ScoreBoardClass(StuCourses* SC, int p) {
+void ScoreBoardCourse(StuCourses* SC, int p) {
     string ID;
     cin.ignore();
     cout << "Enter ID of a course that you want to see it: ";
     getline(cin, ID);
     for (int i = 0; i < p; i++) {
         if (ID == SC[i].CouID)
+        {
+            cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend <<
+                " | Total Mark: " << SC[i].total << " | Final Mark: " << SC[i].final <<
+                " | Midterm Mark: " << SC[i].midterm << " | Other Mark: " << SC[i].other << endl;
+        }
+    }
+}
+
+void ScoreBoardClass(StuCourses* SC, int p) {
+    string ID;
+    cin.ignore();
+    cout << "Enter ID of a class that you want to see it: ";
+    getline(cin, ID);
+    for (int i = 0; i < p; i++) {
+        if (ID == SC[i].Class)
         {
             cout << "Student ID: " << SC[i].StuID << " | Name: " << SC[i].Fname << " " << SC[i].Lname << " | Class: " << SC[i].Class << " | Course ID: " << SC[i].CouID << " | Course: " << SC[i].Cname << " | Semester: " << SC[i].daystart << "/" << SC[i].monthstart << " - " << SC[i].dayend << "/" << SC[i].monthend <<
                 " | Total Mark: " << SC[i].total << " | Final Mark: " << SC[i].final <<

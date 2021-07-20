@@ -151,6 +151,7 @@ void ViewScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
 void ImportScoreBoard(StuCourses* SC, int p, int pos, Courses* C);
 void UpdateStuResult(StuCourses*& SC, int p);
 void ScoreBoardClass(StuCourses* SC, int p);
+void ScoreBoardCourse(StuCourses* SC, int p);
 
 void viewClasses(Classes*& Clas, int& k, Student* S, int n);
 

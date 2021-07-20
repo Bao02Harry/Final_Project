@@ -39,13 +39,14 @@ int main() {
                 cout << "\t9. Import the scoreboard of a course." << endl;
                 cout << "\t10. Update a student result." << endl;
                 cout << "\t11. View the scoreboard of a class." << endl;
+                cout << "\t12. View the scoreboard of a course." << endl;
                 cout << "\t0. Log out." << endl;
                 cout << "\t-1. Exit" << endl;
                 cout << "\n\t\t*******************************************\n";
                 PrintElementTech(T, pos);
                 cout << "\n\t Choose the option you wanna do: ";
                 cin >> select;
-                while ((select < -1) || (select > 11))
+                while ((select < -1) || (select > 12))
                 {
                     cout << "The option you enter isn't suitable\nPlease choose it again: "; cin >> select;
                 }
@@ -147,6 +148,13 @@ int main() {
                     ScoreBoardClass(SC, p);
                     system("pause");
                 } break;
+                case 12:
+                {
+                    system("cls");
+                    Format("View the scoreboard of a course.");
+                    ScoreBoardCourse(SC, p);
+                    system("pause");
+                }
                 case 0: {
                     cin.ignore();
                     check_temp = false;
