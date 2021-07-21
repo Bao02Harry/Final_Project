@@ -978,10 +978,14 @@ bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int posit
 {
     if (position == -1) return false;
     for (int i = 0; i < p; i++) {
-        if ((SC[i].StuID == ID) && (SC[i].Cname == C[position].CName))
+        if ((SC[i].StuID == ID))
         {
+            if (SC[i].CouID == C[position].ID) {
+                return false;
+            }
             if (SC[i].day1 == C[position].day1) {
-                if (SC[i].session1 == C[position].session1) return false;
+                if (SC[i].session1 == C[position].session1)
+                    return false;
             }
             if (SC[i].day1 == C[position].day2) {
                 if (SC[i].session1 == C[position].session2)
@@ -996,7 +1000,6 @@ bool unduplicated(StuCourses* SC, int p, Courses* C, int t, string ID, int posit
                     return false;
             }
         }
-
     }
     return true;
 }
@@ -1183,12 +1186,12 @@ void ScoreBoardClass(StuCourses* SC, int p) {
     }
 }
 
-void viewClasses(Classes* & Clas, int & k, Student * S, int n)
+void viewClasses(Classes*& Clas, int& k, Student* S, int n)
 {
     int count = 0;
-    Clas = new Classes[n - 1];
-    Clas[k-1].name = S[0].Class; //k=1
-    Clas[k-1].num = 1;
+   
+    Clas[k - 1].name = S[0].Class; //k=1
+    Clas[k - 1].num = 1;
     for (int i = 0; i < n; i++)
         if (S[i].Class != Clas[k].name)
         {

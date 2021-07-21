@@ -5,13 +5,14 @@ int main() {
     Teacher* T;
     Courses* C;
     StuCourses* SC;
-    Classes* Clas;
     int n = 0, m = 0, t = 0, p = 0, k = 1;
     ReadStudent(S, n);
     ReadTeacher(T, m);
     ReadCourses(C, t);
     WriteRegisterStuDefault(C, t, S, n, SC, p);
     WriteAfterUdateStuC(SC, p);
+    Classes* Clas;
+    Clas = new Classes[n - 1];
     string user, password;
     int schoolYear = 0;
     bool check = true;
@@ -293,7 +294,7 @@ int main() {
                         viewClasses(Clas, k, S, n);
                         for (int i = 0; i < k; i++)
                         {
-                            cout << "\n\t Class: " << Clas[i].name << " | " << Clas[i].num << " Students "<< endl;
+                            cout << "\n\t Class: " << Clas[i].name << " | " << Clas[i].num << " Students " << endl;
                         }
                         system("pause");
                     } break;
@@ -301,7 +302,7 @@ int main() {
                     {
                         system("cls");
                         Format("list student in a class");
-                        string ID;                       
+                        string ID;
                         cout << "\tEnter ID of class to view list students: ";
                         cin.ignore();
                         getline(cin, ID);
@@ -311,6 +312,7 @@ int main() {
                                 printStuCour(SC, i);
                             }
                         }
+                        
                         system("pause");
                     }break;
                     case 0: {
@@ -339,6 +341,7 @@ int main() {
     delete[] S;
     delete[] T;
     delete[] C;
+    delete[] Clas;
     system("pause");
     return 0;
 }
