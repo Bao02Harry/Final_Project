@@ -342,6 +342,7 @@ int main() {
     delete[] T;
     delete[] C;
     delete[] Clas;
+    delete[] SC;
     system("pause");
     return 0;
 }
